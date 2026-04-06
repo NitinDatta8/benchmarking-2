@@ -10,20 +10,23 @@ cd /workspace
 ## 1. Clone repo
 
 ```
-git clone https://@github.com/NitinDatta8/benchmarking-2.git
+git clone https://${GITHUB_TOKEN}@github.com/NitinDatta8/benchmarking-2.git
 cd benchmarking-2
 ```
 
 ## 2. Create `.env` file
 
-Copy the example and fill in your keys:
+Create the `.env` file with your tokens:
 
 ```bash
-cp .env.example .env
-# Edit .env with your actual tokens:
-#   HF_TOKEN=hf_...
-#   OPENAI_API_KEY=sk-...
+cat > .env << 'EOF'
+HF_TOKEN=hf_your_token_here
+OPENAI_API_KEY=sk-your_key_here
+GITHUB_TOKEN=ghp_your_token_here
+EOF
 ```
+
+Then edit the values with `nano .env`.
 
 Both `runpod_setup.sh` and `run_benchmark.sh` automatically source `.env` from the repo root.
 The Python benchmark runner also reads `.env` via `python-dotenv`.

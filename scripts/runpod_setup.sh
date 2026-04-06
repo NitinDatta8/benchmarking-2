@@ -38,6 +38,12 @@ esac
 # GPU check
 nvidia-smi --query-gpu=name,memory.total,compute_cap --format=csv,noheader
 
+# Use /workspace for all caches to avoid filling root partition
+export UV_CACHE_DIR=/workspace/.uv_cache
+export PIP_CACHE_DIR=/workspace/.pip_cache
+export TMPDIR=/workspace/.tmp
+mkdir -p "$UV_CACHE_DIR" "$PIP_CACHE_DIR" "$TMPDIR"
+
 # Install uv if not present
 pip install uv --quiet --break-system-packages 2>/dev/null || true
 

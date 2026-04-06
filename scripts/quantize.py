@@ -75,11 +75,17 @@ def build_recipe(method):
 
     if method == "gptq_w4a16":
         from llmcompressor.modifiers.quantization import GPTQModifier
-        return GPTQModifier(targets="Linear", scheme=scheme, ignore=["lm_head"])
+        return GPTQModifier(
+            targets="Linear", scheme=scheme, ignore=["lm_head"],
+            dampening_frac=0.1,
+        )
 
     if method == "awq_w4a16":
-        from llmcompressor.modifiers.quantization import AWQModifier
-        return AWQModifier(targets="Linear", scheme=scheme, ignore=["lm_head"])
+        from llmcompressor.modifiers.awq import AWQModifier
+        return AWQModifier(
+            targets="Linear", scheme=scheme, ignore=["lm_head"],
+            duo_scaling=True,
+        )
 
     from llmcompressor.modifiers.quantization import QuantizationModifier
     return QuantizationModifier(targets="Linear", scheme=scheme, ignore=["lm_head"])
@@ -112,11 +118,13 @@ def quantize(method, base_model_path, output_path, config):
         from datasets import Dataset
         calib_texts = load_calibration_data(config, tokenizer, n_samples)
         ds = Dataset.from_dict({"text": calib_texts})
+        ds = ds.shuffle(seed=42)
         print(f"[{tag}] Quantizing ({n_samples} calibration samples, seq_len={seq_len})...")
         oneshot(
             model=model,
             recipe=recipe,
             dataset=ds,
+            shuffle=True,
             max_seq_length=seq_len,
             num_calibration_samples=n_samples,
         )
@@ -128,7 +136,7 @@ def quantize(method, base_model_path, output_path, config):
     print(f"[{tag}] Done in {elapsed:.1f}s")
 
     Path(output_path).mkdir(parents=True, exist_ok=True)
-    model.save_pretrained(output_path)
+    model.save_pretrained(output_path, save_compressed=True)
     tokenizer.save_pretrained(output_path)
 
     meta = {
