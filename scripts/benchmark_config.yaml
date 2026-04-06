@@ -65,7 +65,8 @@ cost:
 
 profiling:
   trace_record_shapes: true
-  trace_with_memory: true
+  trace_with_memory: false     # large host RAM usage; off by default
   trace_with_stack: false      # true adds significant overhead
-  trace_with_flops: true
+  trace_with_flops: false      # large host RAM usage; off by default
   trace_use_gzip: true
+  profile_max_prompts: 3       # cap prompts processed when --profile is set

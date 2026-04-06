@@ -136,6 +136,15 @@ def run_benchmark(method_name, gpu, config, profile=False):
     output_cfg = config["output"]
     concurrency_levels = bench_cfg["concurrency_levels"]
 
+    # When profiling, only run lowest + highest concurrency to save time and
+    # avoid huge trace files. Traces vary across batch sizes but the two
+    # extremes capture single-request vs fully-batched kernel behavior.
+    if profile and len(concurrency_levels) > 2:
+        concurrency_levels = [min(concurrency_levels), max(concurrency_levels)]
+        print(f"Profiling mode: limiting concurrency to {concurrency_levels}")
+
+    profile_max_prompts = config.get("profiling", {}).get("profile_max_prompts", 3)
+
     # Cost config
     cost_cfg = config.get("cost", {})
     hourly_rates = cost_cfg.get("runpod_hourly_rates", {})
@@ -158,10 +167,16 @@ def run_benchmark(method_name, gpu, config, profile=False):
         print(f"\n--- Concurrency {conc} ---")
 
         if profile:
+            run_prompts = prompts[:profile_max_prompts]
+            run_formatted = formatted[:profile_max_prompts]
+            print(f"Profiling: limiting to {len(run_prompts)} prompts")
             llm.start_profile()
+        else:
+            run_prompts = prompts
+            run_formatted = formatted
 
         metrics, wall_time, tokens = _run_batch(
-            llm, sampling_params, prompts, formatted, conc,
+            llm, sampling_params, run_prompts, run_formatted, conc,
         )
 
         if profile:
