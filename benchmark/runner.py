@@ -56,15 +56,18 @@ def _extract_request_stats(output, n_tokens):
     """Extract per-request latency metrics from vLLM RequestOutput.metrics."""
     stats = getattr(output, "metrics", None)
 
-    if stats is None:
-        return float("nan"), float("nan"), 0.0
-
     # Debug: print available metrics fields on first call
     if not hasattr(_extract_request_stats, "_debugged"):
         _extract_request_stats._debugged = True
-        print(f"  [DEBUG] metrics type: {type(stats)}")
-        print(f"  [DEBUG] metrics attrs: {[a for a in dir(stats) if not a.startswith('_')]}")
-        print(f"  [DEBUG] metrics dict: {vars(stats) if hasattr(stats, '__dict__') else 'no __dict__'}")
+        print(f"  [DEBUG] metrics is None: {stats is None}")
+        print(f"  [DEBUG] output type: {type(output)}")
+        print(f"  [DEBUG] output attrs: {[a for a in dir(output) if not a.startswith('_')]}")
+        if stats is not None:
+            print(f"  [DEBUG] metrics type: {type(stats)}")
+            print(f"  [DEBUG] metrics dict: {vars(stats) if hasattr(stats, '__dict__') else 'no __dict__'}")
+
+    if stats is None:
+        return float("nan"), float("nan"), 0.0
 
     # vLLM RequestMetrics fields:
     #   first_token_time, first_scheduled_time, finished_time
@@ -86,6 +89,7 @@ def _extract_request_stats(output, n_tokens):
 
 def _run_batch(llm, sampling_params, prompts, formatted_prompts, concurrency,
                request_timeout_sec=None):
+    print(f"\n[_run_batch] START concurrency={concurrency} total_prompts={len(prompts)}")
     all_metrics = []
     total_wall = 0.0
     total_tokens = 0
@@ -93,13 +97,25 @@ def _run_batch(llm, sampling_params, prompts, formatted_prompts, concurrency,
     for start in range(0, len(prompts), concurrency):
         batch_prompts = prompts[start:start + concurrency]
         batch_formatted = formatted_prompts[start:start + concurrency]
+        batch_idx = start // concurrency
 
         t0 = time.perf_counter()
         outputs = llm.generate(batch_formatted, sampling_params)
         batch_time = time.perf_counter() - t0
 
+        batch_tokens = sum(len(o.outputs[0].token_ids) for o in outputs)
         total_wall += batch_time
-        total_tokens += sum(len(o.outputs[0].token_ids) for o in outputs)
+        total_tokens += batch_tokens
+
+        if batch_idx == 0:
+            print(f"[_run_batch] First batch: {len(outputs)} outputs, "
+                  f"batch_time={batch_time:.3f}s, batch_tokens={batch_tokens}")
+            if outputs:
+                o = outputs[0]
+                print(f"[_run_batch] First output type: {type(o)}")
+                print(f"[_run_batch] First output attrs: {[a for a in dir(o) if not a.startswith('_')]}")
+                print(f"[_run_batch] First output.outputs[0] type: {type(o.outputs[0])}")
+                print(f"[_run_batch] First output.outputs[0] attrs: {[a for a in dir(o.outputs[0]) if not a.startswith('_')]}")
 
         for i, output in enumerate(outputs):
             prompt = batch_prompts[i]
@@ -188,22 +204,26 @@ def _write_summary_csv(path, results):
 
 
 def run_benchmark(method_name, gpu, config, profile=False):
+    print(f"\n[run_benchmark] START method={method_name} gpu={gpu} profile={profile}")
     bench_cfg = config["benchmark"]
     output_cfg = config["output"]
     concurrency_levels = bench_cfg["concurrency_levels"]
     request_timeout = bench_cfg.get("request_timeout_sec")
+    print(f"[run_benchmark] concurrency_levels={concurrency_levels} request_timeout={request_timeout}")
 
     # Cost config
     cost_cfg = config.get("cost", {})
     hourly_rates = cost_cfg.get("runpod_hourly_rates", {})
     hourly_rate = hourly_rates.get(gpu, 0.0)
+    print(f"[run_benchmark] hourly_rate={hourly_rate}")
 
     prompts_path = PROJECT_ROOT / output_cfg["prompts_file"]
     with open(prompts_path) as f:
         prompts = json.load(f)["prompts"]
-    print(f"Loaded {len(prompts)} prompts")
+    print(f"[run_benchmark] Loaded {len(prompts)} prompts from {prompts_path}")
 
     llm, sampling_params = load_model(method_name, config, profile=profile)
+    print(f"[run_benchmark] Model loaded. sampling_params={sampling_params}")
 
     tokenizer = llm.get_tokenizer()
     formatted = [_format_prompt(p, tokenizer) for p in prompts]
@@ -267,6 +287,7 @@ def run_benchmark(method_name, gpu, config, profile=False):
 
 
 def main():
+    print("[main] runner.py starting")
     parser = argparse.ArgumentParser()
     parser.add_argument("--method", required=True)
     parser.add_argument("--gpu", required=True)
