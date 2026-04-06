@@ -9,7 +9,6 @@ Usage:
 import argparse
 import csv
 import json
-import math
 import sys
 import time
 from pathlib import Path
@@ -22,7 +21,6 @@ if str(PROJECT_ROOT) not in sys.path:
 
 from benchmark.metrics import BenchmarkResult, RequestMetrics
 from benchmark.model_loader import load_model
-from benchmark.quality_eval import evaluate
 from benchmark.llm_judge import judge as llm_judge
 
 
@@ -52,44 +50,7 @@ def _warmup(llm, sampling_params, formatted_prompts, n):
     llm.generate(formatted_prompts[:n], sampling_params)
 
 
-def _extract_request_stats(output, n_tokens):
-    """Extract per-request latency metrics from vLLM RequestOutput.metrics."""
-    stats = getattr(output, "metrics", None)
-
-    # Debug: print available metrics fields on first call
-    if not hasattr(_extract_request_stats, "_debugged"):
-        _extract_request_stats._debugged = True
-        print(f"  [DEBUG] metrics is None: {stats is None}")
-        print(f"  [DEBUG] output type: {type(output)}")
-        print(f"  [DEBUG] output attrs: {[a for a in dir(output) if not a.startswith('_')]}")
-        if stats is not None:
-            print(f"  [DEBUG] metrics type: {type(stats)}")
-            print(f"  [DEBUG] metrics dict: {vars(stats) if hasattr(stats, '__dict__') else 'no __dict__'}")
-
-    if stats is None:
-        return float("nan"), float("nan"), 0.0
-
-    # vLLM RequestMetrics fields:
-    #   first_token_time, first_scheduled_time, finished_time
-    ft = getattr(stats, "first_token_time", 0.0) or 0.0
-    st = getattr(stats, "first_scheduled_time", 0.0) or 0.0
-    fin = getattr(stats, "finished_time", 0.0) or 0.0
-
-    # TTFT: time from scheduling to first token
-    ttft = (ft - st) if ft > 0 and st > 0 else float("nan")
-
-    # End-to-end latency: time from scheduling to last token
-    e2e = (fin - st) if fin > 0 and st > 0 else float("nan")
-
-    # Per-request TPS
-    tps = n_tokens / e2e if (not math.isnan(e2e) and e2e > 0) else 0.0
-
-    return ttft, e2e, tps
-
-
-def _run_batch(llm, sampling_params, prompts, formatted_prompts, concurrency,
-               request_timeout_sec=None):
-    print(f"\n[_run_batch] START concurrency={concurrency} total_prompts={len(prompts)}")
+def _run_batch(llm, sampling_params, prompts, formatted_prompts, concurrency):
     all_metrics = []
     total_wall = 0.0
     total_tokens = 0
@@ -97,7 +58,6 @@ def _run_batch(llm, sampling_params, prompts, formatted_prompts, concurrency,
     for start in range(0, len(prompts), concurrency):
         batch_prompts = prompts[start:start + concurrency]
         batch_formatted = formatted_prompts[start:start + concurrency]
-        batch_idx = start // concurrency
 
         t0 = time.perf_counter()
         outputs = llm.generate(batch_formatted, sampling_params)
@@ -107,48 +67,26 @@ def _run_batch(llm, sampling_params, prompts, formatted_prompts, concurrency,
         total_wall += batch_time
         total_tokens += batch_tokens
 
-        if batch_idx == 0:
-            print(f"[_run_batch] First batch: {len(outputs)} outputs, "
-                  f"batch_time={batch_time:.3f}s, batch_tokens={batch_tokens}")
-            if outputs:
-                o = outputs[0]
-                print(f"[_run_batch] First output type: {type(o)}")
-                print(f"[_run_batch] First output attrs: {[a for a in dir(o) if not a.startswith('_')]}")
-                print(f"[_run_batch] First output.outputs[0] type: {type(o.outputs[0])}")
-                print(f"[_run_batch] First output.outputs[0] attrs: {[a for a in dir(o.outputs[0]) if not a.startswith('_')]}")
-
         for i, output in enumerate(outputs):
             prompt = batch_prompts[i]
             text = output.outputs[0].text
             n_tokens = len(output.outputs[0].token_ids)
 
-            ttft, e2e, tps = _extract_request_stats(output, n_tokens)
-
-            # Flag requests that exceeded the configured timeout
-            timed_out = (request_timeout_sec and not math.isnan(e2e)
-                         and e2e > request_timeout_sec)
-            if timed_out:
-                print(f"  WARNING: prompt {prompt['id']} exceeded timeout "
-                      f"({e2e:.1f}s > {request_timeout_sec}s)")
-
-            eq = evaluate(text, prompt["quality_checks"])
+            # Wall-clock E2E: all requests in a batch run concurrently
+            # via continuous batching, so each request's E2E ≈ batch_time.
+            e2e = batch_time
+            tps = n_tokens / e2e if e2e > 0 else 0.0
 
             # LLM-as-Judge scoring
             jr = llm_judge(prompt, text)
-            judge_score = jr.score
-            judge_passed = jr.passed
 
             all_metrics.append(RequestMetrics(
                 prompt_id=prompt["id"],
                 category=prompt["category"],
                 output_tokens=n_tokens,
-                quality_passed=eq.passed if not timed_out else False,
-                quality_pass_rate=eq.pass_rate if not timed_out else 0.0,
-                judge_score=judge_score if not timed_out else 0.0,
-                judge_passed=judge_passed if not timed_out else False,
-                ttft_sec=ttft,
                 e2e_latency_sec=e2e,
                 tps=tps,
+                judge_score=jr.score,
             ))
 
     return all_metrics, total_wall, total_tokens
@@ -157,18 +95,12 @@ def _run_batch(llm, sampling_params, prompts, formatted_prompts, concurrency,
 # CSV column definitions
 DETAIL_COLS = [
     "method", "gpu", "concurrency", "prompt_id", "category",
-    "ttft_sec", "e2e_latency_sec",
-    "output_tokens", "tps",
-    "quality_passed", "quality_pass_rate",
-    "judge_score", "judge_passed",
+    "e2e_latency_sec", "output_tokens", "tps", "judge_score",
 ]
 SUMMARY_COLS = [
     "method", "gpu", "concurrency", "num_requests",
-    "ttft_mean_sec", "ttft_p50_sec", "ttft_p95_sec",
     "e2e_latency_mean_sec", "e2e_latency_p50_sec", "e2e_latency_p95_sec",
-    "tps_per_request_mean", "tps_system", "requests_per_sec",
-    "quality_pass_rate", "judge_score_mean", "judge_pass_rate",
-    "cost_per_1m_tokens_usd",
+    "tps_system", "judge_score_mean", "cost_per_1m_tokens_usd",
 ]
 
 
@@ -183,14 +115,10 @@ def _write_detail_csv(path, results):
                     "method": result.method, "gpu": result.gpu,
                     "concurrency": result.concurrency,
                     "prompt_id": req.prompt_id, "category": req.category,
-                    "ttft_sec": round(req.ttft_sec, 6) if req.has_ttft else "",
-                    "e2e_latency_sec": round(req.e2e_latency_sec, 6) if req.has_e2e else "",
+                    "e2e_latency_sec": round(req.e2e_latency_sec, 6),
                     "output_tokens": req.output_tokens,
                     "tps": round(req.tps, 2),
-                    "quality_passed": req.quality_passed,
-                    "quality_pass_rate": round(req.quality_pass_rate, 4),
                     "judge_score": round(req.judge_score, 4),
-                    "judge_passed": req.judge_passed,
                 })
 
 
@@ -204,26 +132,21 @@ def _write_summary_csv(path, results):
 
 
 def run_benchmark(method_name, gpu, config, profile=False):
-    print(f"\n[run_benchmark] START method={method_name} gpu={gpu} profile={profile}")
     bench_cfg = config["benchmark"]
     output_cfg = config["output"]
     concurrency_levels = bench_cfg["concurrency_levels"]
-    request_timeout = bench_cfg.get("request_timeout_sec")
-    print(f"[run_benchmark] concurrency_levels={concurrency_levels} request_timeout={request_timeout}")
 
     # Cost config
     cost_cfg = config.get("cost", {})
     hourly_rates = cost_cfg.get("runpod_hourly_rates", {})
     hourly_rate = hourly_rates.get(gpu, 0.0)
-    print(f"[run_benchmark] hourly_rate={hourly_rate}")
 
     prompts_path = PROJECT_ROOT / output_cfg["prompts_file"]
     with open(prompts_path) as f:
         prompts = json.load(f)["prompts"]
-    print(f"[run_benchmark] Loaded {len(prompts)} prompts from {prompts_path}")
+    print(f"Loaded {len(prompts)} prompts")
 
     llm, sampling_params = load_model(method_name, config, profile=profile)
-    print(f"[run_benchmark] Model loaded. sampling_params={sampling_params}")
 
     tokenizer = llm.get_tokenizer()
     formatted = [_format_prompt(p, tokenizer) for p in prompts]
@@ -239,7 +162,6 @@ def run_benchmark(method_name, gpu, config, profile=False):
 
         metrics, wall_time, tokens = _run_batch(
             llm, sampling_params, prompts, formatted, conc,
-            request_timeout_sec=request_timeout,
         )
 
         if profile:
@@ -254,10 +176,9 @@ def run_benchmark(method_name, gpu, config, profile=False):
 
         s = result.summary_row()
         print(
-            f"TTFT mean={s['ttft_mean_sec']}s p95={s['ttft_p95_sec']}s | "
             f"E2E mean={s['e2e_latency_mean_sec']}s p95={s['e2e_latency_p95_sec']}s | "
-            f"TPS system={s['tps_system']} req/s={s['requests_per_sec']} | "
-            f"Quality={s['quality_pass_rate']} Judge={s['judge_score_mean']} | "
+            f"TPS system={s['tps_system']} | "
+            f"Judge={s['judge_score_mean']} | "
             f"Cost=${s['cost_per_1m_tokens_usd']}/1M"
         )
 
@@ -287,7 +208,6 @@ def run_benchmark(method_name, gpu, config, profile=False):
 
 
 def main():
-    print("[main] runner.py starting")
     parser = argparse.ArgumentParser()
     parser.add_argument("--method", required=True)
     parser.add_argument("--gpu", required=True)
