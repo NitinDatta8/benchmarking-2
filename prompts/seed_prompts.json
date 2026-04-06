@@ -1,0 +1,638 @@
+{
+  "version": "1.0",
+  "description": "Seed prompts for JPMC quantization benchmark. 6 seeds per category across 5 personalization domains.",
+  "categories": {
+
+    "travel_dining": [
+      {
+        "id": "td_s001",
+        "system": "You are a Chase Sapphire concierge assistant helping cardholders plan travel and dining experiences. Provide specific, actionable recommendations with clear reasoning tied to the cardholder's preferences and constraints. Always mention at least 3 options ranked by fit.",
+        "user": "I'm a Chase Sapphire Reserve cardholder flying into New York City next Friday for a 3-night stay. My hotel budget is $250 per night and I'm specifically looking for fine dining options — preferably restaurants with a strong cocktail program and a tasting menu under $150 per person. I don't eat red meat but I enjoy seafood and vegetarian dishes. Please recommend your top 3 restaurants with a brief reason for each and note whether reservations need to be made weeks in advance.",
+        "quality_checks": {
+          "type": "field_presence",
+          "required_fields": ["restaurant", "reservation", "tasting menu", "seafood"],
+          "min_list_items": 3,
+          "constraints_to_verify": ["no red meat", "tasting menu", "$150"]
+        },
+        "meta": {
+          "approx_input_tokens": 130,
+          "stress_type": "generation_heavy",
+          "expected_output_tokens": 350
+        }
+      },
+      {
+        "id": "td_s002",
+        "system": "You are a Chase Sapphire concierge assistant helping cardholders plan travel and dining experiences. Provide specific, actionable recommendations with clear reasoning tied to the cardholder's preferences and constraints. Always mention at least 3 options ranked by fit.",
+        "user": "I'm traveling to Chicago next month on a business trip — I'll be arriving Tuesday evening at O'Hare around 8 PM. I have a Chase Sapphire Preferred card. I need to know: (1) which airport lounges I have access to at O'Hare, (2) a dinner recommendation within 15 minutes of the Marriott Magnificent Mile, and (3) a breakfast spot worth walking to on Wednesday morning. I have a shellfish allergy so please flag anything that might be a risk. Budget for dinner is around $80 per person.",
+        "quality_checks": {
+          "type": "field_presence",
+          "required_fields": ["lounge", "dinner", "breakfast", "shellfish", "Marriott"],
+          "min_list_items": 3,
+          "constraints_to_verify": ["shellfish allergy", "$80", "O'Hare"]
+        },
+        "meta": {
+          "approx_input_tokens": 145,
+          "stress_type": "generation_heavy",
+          "expected_output_tokens": 380
+        }
+      },
+      {
+        "id": "td_s003",
+        "system": "You are a Chase Sapphire concierge assistant helping cardholders plan travel and dining experiences. Provide specific, actionable recommendations with clear reasoning tied to the cardholder's preferences and constraints. Always mention at least 3 options ranked by fit.",
+        "user": "My family of four (two adults, two kids ages 7 and 10) is planning a 5-day trip to Orlando in July. We want to avoid Disney World — we've been twice already. Our hotel budget is $160 per night and we'd like to stay somewhere with a pool. Please recommend three hotel options and two family-friendly restaurants near International Drive. The kids love Italian food and my daughter is vegetarian. We have a Chase Freedom Unlimited card.",
+        "quality_checks": {
+          "type": "field_presence",
+          "required_fields": ["hotel", "restaurant", "pool", "vegetarian", "Italian"],
+          "min_list_items": 3,
+          "constraints_to_verify": ["no Disney", "$160", "family", "vegetarian"]
+        },
+        "meta": {
+          "approx_input_tokens": 135,
+          "stress_type": "generation_heavy",
+          "expected_output_tokens": 400
+        }
+      },
+      {
+        "id": "td_s004",
+        "system": "You are a Chase Sapphire concierge assistant helping cardholders plan travel and dining experiences. Provide specific, actionable recommendations with clear reasoning tied to the cardholder's preferences and constraints. Always mention at least 3 options ranked by fit.",
+        "user": "I'm planning a surprise anniversary trip to San Francisco for this coming weekend — Saturday through Sunday night. My partner loves sushi and Japanese cuisine. I want one very special dinner (budget up to $200 per person) and a more casual brunch option for Sunday morning near the waterfront. I also need a boutique hotel recommendation with a city view. We're Chase Sapphire Reserve holders. Please rank your top dining options and flag if same-day reservations are typically possible.",
+        "quality_checks": {
+          "type": "field_presence",
+          "required_fields": ["sushi", "dinner", "brunch", "hotel", "reservation", "city view"],
+          "min_list_items": 3,
+          "constraints_to_verify": ["anniversary", "$200", "waterfront", "Japanese"]
+        },
+        "meta": {
+          "approx_input_tokens": 140,
+          "stress_type": "generation_heavy",
+          "expected_output_tokens": 380
+        }
+      },
+      {
+        "id": "td_s005",
+        "system": "You are a Chase Sapphire concierge assistant helping cardholders plan travel and dining experiences. Provide specific, actionable recommendations with clear reasoning tied to the cardholder's preferences and constraints. Always mention at least 3 options ranked by fit.",
+        "user": "I'm visiting Tokyo for the first time — 7 nights starting April 20th. This is my first international trip with my Chase Sapphire Reserve card and I want to make the most of the travel benefits. Please tell me: (1) which Priority Pass lounges are available at Tokyo Haneda, (2) three must-try dining experiences across different price points (one budget ramen spot, one mid-range izakaya, one high-end kaiseki), and (3) any neighborhoods I should base myself in for easy access to food and transit. I'm traveling solo and comfortable with solo dining.",
+        "quality_checks": {
+          "type": "field_presence",
+          "required_fields": ["lounge", "ramen", "izakaya", "kaiseki", "neighborhood", "Haneda"],
+          "min_list_items": 3,
+          "constraints_to_verify": ["Priority Pass", "7 nights", "Tokyo", "solo"]
+        },
+        "meta": {
+          "approx_input_tokens": 155,
+          "stress_type": "generation_heavy",
+          "expected_output_tokens": 450
+        }
+      },
+      {
+        "id": "td_s006",
+        "system": "You are a Chase Sapphire concierge assistant helping cardholders plan travel and dining experiences. Provide specific, actionable recommendations with clear reasoning tied to the cardholder's preferences and constraints. Always mention at least 3 options ranked by fit.",
+        "user": "I'm looking for a weekend road trip from NYC — Friday evening to Sunday afternoon — somewhere within a 3-hour drive. I want a destination with good farm-to-table or regional American cuisine, ideally somewhere charming rather than touristy. My budget for the whole trip is around $500 (accommodation + two dinners + one lunch). I have a Chase Sapphire Preferred and would like to maximize points if possible. Please recommend a destination, two dinner options, and one Saturday lunch spot.",
+        "quality_checks": {
+          "type": "field_presence",
+          "required_fields": ["destination", "dinner", "lunch", "farm-to-table", "points"],
+          "min_list_items": 3,
+          "constraints_to_verify": ["3-hour drive", "$500", "weekend", "NYC"]
+        },
+        "meta": {
+          "approx_input_tokens": 135,
+          "stress_type": "generation_heavy",
+          "expected_output_tokens": 380
+        }
+      }
+    ],
+
+    "credit_card": [
+      {
+        "id": "cc_s001",
+        "system": "You are a Chase credit card advisor. Recommend the most suitable Chase credit card(s) based on the customer's spending profile and priorities. Always structure your response to include: (1) primary recommendation with card name, (2) annual fee, (3) top 3 key benefits relevant to this customer, (4) estimated annual value, and (5) one alternative card worth considering.",
+        "user": "I travel for work about 15 times per year, mostly domestic flights on Delta and United. My annual spend breaks down roughly as: $14,000 on airfare, $9,000 on hotels (mix of Marriott and Hyatt), $4,000 on dining, and $2,000 on everything else. I currently have no travel card — I'm using a basic 1.5% cashback card. I want airport lounge access badly, a Global Entry or TSA PreCheck credit, and strong points on travel spend. Annual fee isn't a dealbreaker if the math works out. What's the right Chase card for me?",
+        "quality_checks": {
+          "type": "field_presence",
+          "required_fields": ["Sapphire Reserve", "annual fee", "lounge", "Global Entry", "points"],
+          "min_list_items": 2,
+          "constraints_to_verify": ["$14,000 airfare", "lounge access", "TSA PreCheck"]
+        },
+        "meta": {
+          "approx_input_tokens": 145,
+          "stress_type": "balanced",
+          "expected_output_tokens": 320
+        }
+      },
+      {
+        "id": "cc_s002",
+        "system": "You are a Chase credit card advisor. Recommend the most suitable Chase credit card(s) based on the customer's spending profile and priorities. Always structure your response to include: (1) primary recommendation with card name, (2) annual fee, (3) top 3 key benefits relevant to this customer, (4) estimated annual value, and (5) one alternative card worth considering.",
+        "user": "I'm 27 years old, just started my first full-time job, and I want to be smart about my first real credit card. I spend about $600/month total: $250 on groceries, $150 on dining and takeout, $100 on subscriptions (Netflix, Spotify, gym), and $100 on everything else. I have no interest in paying a high annual fee — ideally free, but I'd consider up to $95 if the rewards clearly exceed that. I care most about simplicity: I don't want to track bonus categories or remember which card to use where. What do you recommend?",
+        "quality_checks": {
+          "type": "field_presence",
+          "required_fields": ["Freedom", "annual fee", "cashback", "groceries", "dining"],
+          "min_list_items": 2,
+          "constraints_to_verify": ["$95 annual fee", "no annual fee", "simplicity", "groceries"]
+        },
+        "meta": {
+          "approx_input_tokens": 140,
+          "stress_type": "balanced",
+          "expected_output_tokens": 280
+        }
+      },
+      {
+        "id": "cc_s003",
+        "system": "You are a Chase credit card advisor. Recommend the most suitable Chase credit card(s) based on the customer's spending profile and priorities. Always structure your response to include: (1) primary recommendation with card name, (2) annual fee, (3) top 3 key benefits relevant to this customer, (4) estimated annual value, and (5) one alternative card worth considering.",
+        "user": "Our household of four has a pretty predictable spend: $1,800/month on groceries (we have Costco + Whole Foods), $400/month on gas, $200/month on streaming services (Disney+, Hulu, Netflix, Amazon Prime), and about $300/month on kids' activities and Amazon purchases. We're not big travelers — maybe one or two trips a year. We've been using a basic Visa that gives us 1% on everything. I want to maximize cashback on this specific mix of spending. We're open to having two Chase cards if that optimizes rewards.",
+        "quality_checks": {
+          "type": "field_presence",
+          "required_fields": ["Freedom Flex", "cashback", "groceries", "gas", "streaming"],
+          "min_list_items": 2,
+          "constraints_to_verify": ["groceries", "gas", "streaming", "cashback"]
+        },
+        "meta": {
+          "approx_input_tokens": 145,
+          "stress_type": "balanced",
+          "expected_output_tokens": 300
+        }
+      },
+      {
+        "id": "cc_s004",
+        "system": "You are a Chase credit card advisor. Recommend the most suitable Chase credit card(s) based on the customer's spending profile and priorities. Always structure your response to include: (1) primary recommendation with card name, (2) annual fee, (3) top 3 key benefits relevant to this customer, (4) estimated annual value, and (5) one alternative card worth considering.",
+        "user": "I run a small consulting firm with 4 employees. My business spending last year was approximately: $22,000 on travel (flights + hotels), $8,000 on client dinners and entertainment, $5,000 on office supplies and software subscriptions, $3,000 on advertising (Google Ads, LinkedIn). I need a business card that gives my employees their own cards, has good travel perks, and ideally some kind of cell phone protection or purchase protection. What's the best Chase business card for this profile?",
+        "quality_checks": {
+          "type": "field_presence",
+          "required_fields": ["Ink", "business", "employee cards", "travel", "annual fee"],
+          "min_list_items": 2,
+          "constraints_to_verify": ["employee cards", "$22,000 travel", "business"]
+        },
+        "meta": {
+          "approx_input_tokens": 145,
+          "stress_type": "balanced",
+          "expected_output_tokens": 310
+        }
+      },
+      {
+        "id": "cc_s005",
+        "system": "You are a Chase credit card advisor. Recommend the most suitable Chase credit card(s) based on the customer's spending profile and priorities. Always structure your response to include: (1) primary recommendation with card name, (2) annual fee, (3) top 3 key benefits relevant to this customer, (4) estimated annual value, and (5) one alternative card worth considering.",
+        "user": "I'm a college junior looking to get my first credit card. I have a part-time job earning about $1,100/month. My spending is mostly: $200 on food (dining hall + Chipotle + occasional restaurant), $150 on Amazon and online shopping, $80 on Spotify and Netflix, and small incidental purchases. I want to build credit responsibly and get some rewards. I'm worried about getting denied — does Chase have student cards? I have no existing credit history but I've been added as an authorized user on my parents' card for 2 years.",
+        "quality_checks": {
+          "type": "field_presence",
+          "required_fields": ["student", "Freedom", "credit", "annual fee", "rewards"],
+          "min_list_items": 1,
+          "constraints_to_verify": ["no credit history", "student", "authorized user"]
+        },
+        "meta": {
+          "approx_input_tokens": 140,
+          "stress_type": "balanced",
+          "expected_output_tokens": 260
+        }
+      },
+      {
+        "id": "cc_s006",
+        "system": "You are a Chase credit card advisor. Recommend the most suitable Chase credit card(s) based on the customer's spending profile and priorities. Always structure your response to include: (1) primary recommendation with card name, (2) annual fee, (3) top 3 key benefits relevant to this customer, (4) estimated annual value, and (5) one alternative card worth considering.",
+        "user": "I live and work overseas (Singapore-based, US citizen) and fly internationally 10+ times a year — mostly between Southeast Asia, Europe, and the US. My annual spend: $18,000 on international airfare, $12,000 on hotels abroad, $6,000 on dining. I need absolutely no foreign transaction fees. I want strong transfer partners — ideally cards that transfer to Singapore Airlines KrisFlyer, Cathay Pacific Asia Miles, or British Airways Avios. What's the best Chase card strategy for my situation? I'm open to holding multiple cards.",
+        "quality_checks": {
+          "type": "field_presence",
+          "required_fields": ["Sapphire", "transfer partners", "no foreign transaction", "annual fee", "Ultimate Rewards"],
+          "min_list_items": 2,
+          "constraints_to_verify": ["no foreign transaction fees", "international", "transfer partners"]
+        },
+        "meta": {
+          "approx_input_tokens": 150,
+          "stress_type": "balanced",
+          "expected_output_tokens": 350
+        }
+      }
+    ],
+
+    "merchant_offers": [
+      {
+        "id": "mo_s001",
+        "system": "You are a Chase Offers recommendation engine. Given a customer profile and a list of retrieved merchant offers, identify the top 3 most relevant offers and explain why each matches the customer's preferences and spending behavior. Format your response as a numbered list. Each entry: offer name, the benefit, and one sentence of rationale. Be concise.",
+        "user": "CUSTOMER PROFILE:\nName: Sarah M. | Segment: Frequent Traveler | Primary card: Chase Sapphire Reserve\nSpending patterns: Delta Air Lines (avg $1,200/month), Hyatt Hotels (avg $800/month), National Car Rental (avg $200/month), fine dining ($400/month), Amazon ($150/month)\nUpcoming activity: Booked Delta flight to Miami next week, 3-night Hyatt stay confirmed, plans to rent a car on arrival\nPreferences: Prefers premium experiences, values lounge access and upgrades, loyal to Delta and Hyatt\n\n=== RETRIEVED MERCHANT OFFERS (25 active offers, sorted by retrieval score) ===\n\nOFFER-001 | Delta Air Lines | 5% cashback on flights booked directly at delta.com | Expires: June 30, 2026 | Category: Travel-Air | Min spend: $200 | Stackable: Yes\nOFFER-002 | United Airlines | 3x Ultimate Rewards points on United.com bookings | Expires: May 31, 2026 | Category: Travel-Air | Min spend: $150 | Stackable: No\nOFFER-003 | Marriott Bonvoy | $50 statement credit on stays of 2+ nights booked direct | Expires: July 15, 2026 | Category: Travel-Hotel | Min spend: $300 | Stackable: Yes\nOFFER-004 | Hyatt Hotels | 10% off total bill on World of Hyatt direct bookings | Expires: June 1, 2026 | Category: Travel-Hotel | Min spend: $200 | Stackable: Yes\nOFFER-005 | Hilton Honors | 5,000 bonus Hilton points per qualifying stay | Expires: August 31, 2026 | Category: Travel-Hotel | No min spend | Stackable: No\nOFFER-006 | Whole Foods Market | 5% cashback on all purchases | Expires: April 30, 2026 | Category: Grocery | Min spend: $50 | Stackable: No\nOFFER-007 | Trader Joe's | 3% cashback on grocery purchases | Expires: May 15, 2026 | Category: Grocery | Min spend: $30 | Stackable: Yes\nOFFER-008 | DoorDash | $10 off orders over $35 | Expires: April 30, 2026 | Category: Food Delivery | Min spend: $35 | Stackable: No\nOFFER-009 | Uber Eats | 15% cashback on first 3 orders this month | Expires: May 31, 2026 | Category: Food Delivery | No min spend | Stackable: No\nOFFER-010 | OpenTable | $20 statement credit after 5 qualifying dining reservations | Expires: June 30, 2026 | Category: Dining | Min: 5 reservations | Stackable: Yes\nOFFER-011 | Resy | 10% off tasting menu bookings at participating restaurants | Expires: May 15, 2026 | Category: Dining-Premium | Min spend: $100 | Stackable: Yes\nOFFER-012 | Amazon | 3% cashback on all Amazon.com purchases | Expires: June 30, 2026 | Category: Shopping-Online | No min spend | Stackable: No\nOFFER-013 | Best Buy | $25 statement credit on electronics purchases over $200 | Expires: April 30, 2026 | Category: Electronics | Min spend: $200 | Stackable: No\nOFFER-014 | Apple Store | 5% cashback on all Apple products and accessories | Expires: May 31, 2026 | Category: Electronics | Min spend: $100 | Stackable: Yes\nOFFER-015 | Netflix | $5/month statement credit for 3 months | Expires: Ongoing | Category: Streaming | No min spend | Stackable: No\nOFFER-016 | Spotify | 3 months of Spotify Premium at 50% off | Expires: May 1, 2026 | Category: Streaming | New subscribers only | Stackable: No\nOFFER-017 | Shell Gas Stations | 5 cents off per gallon at Shell locations | Expires: June 30, 2026 | Category: Gas-Fuel | No min spend | Stackable: Yes\nOFFER-018 | ExxonMobil | 3% cashback on fuel purchases at Exxon and Mobil | Expires: May 31, 2026 | Category: Gas-Fuel | Min spend: $20 | Stackable: No\nOFFER-019 | National Car Rental | 10% off base rental rate for Emerald Club members | Expires: July 31, 2026 | Category: Car-Rental | No min spend | Stackable: Yes\nOFFER-020 | Hertz | $15 off any weekly car rental | Expires: June 30, 2026 | Category: Car-Rental | Min rental: 3 days | Stackable: No\nOFFER-021 | Avis | Double points on all rental transactions | Expires: May 31, 2026 | Category: Car-Rental | No min spend | Stackable: No\nOFFER-022 | Saks Fifth Avenue | 2% cashback on all Saks purchases | Expires: June 30, 2026 | Category: Luxury-Retail | Min spend: $100 | Stackable: Yes\nOFFER-023 | Nordstrom | $30 statement credit on orders over $150 | Expires: April 30, 2026 | Category: Retail-Apparel | Min spend: $150 | Stackable: No\nOFFER-024 | Nike | 10% cashback on Nike.com purchases | Expires: May 15, 2026 | Category: Apparel-Sports | Min spend: $75 | Stackable: Yes\nOFFER-025 | Peloton | 3 months of Peloton membership free with new hardware purchase | Expires: June 30, 2026 | Category: Fitness | Hardware purchase required | Stackable: No\n\nBased on this customer's profile and upcoming travel plans, which 3 offers should Sarah activate right now?",
+        "quality_checks": {
+          "type": "field_presence",
+          "required_fields": ["Delta", "Hyatt", "National"],
+          "min_list_items": 3,
+          "constraints_to_verify": ["Delta", "Hyatt", "National Car Rental"]
+        },
+        "meta": {
+          "approx_input_tokens": 750,
+          "stress_type": "prefill_heavy",
+          "expected_output_tokens": 180
+        }
+      },
+      {
+        "id": "mo_s002",
+        "system": "You are a Chase Offers recommendation engine. Given a customer profile and a list of retrieved merchant offers, identify the top 3 most relevant offers and explain why each matches the customer's preferences and spending behavior. Format your response as a numbered list. Each entry: offer name, the benefit, and one sentence of rationale. Be concise.",
+        "user": "CUSTOMER PROFILE:\nName: Marcus T. | Segment: Urban Foodie | Primary card: Chase Sapphire Preferred\nSpending patterns: Dining out ($600/month), DoorDash/Uber Eats ($300/month), Whole Foods ($250/month), occasional Amazon ($100/month), Spotify active subscriber\nUpcoming activity: Planning 3 dinner reservations this week via OpenTable, large Whole Foods grocery run this weekend, subscribes to multiple streaming services\nPreferences: Food-first lifestyle, values dining credits and delivery cashback, less interested in travel offers\n\n=== RETRIEVED MERCHANT OFFERS (25 active offers, sorted by retrieval score) ===\n\nOFFER-001 | Delta Air Lines | 5% cashback on flights booked directly at delta.com | Expires: June 30, 2026 | Category: Travel-Air | Min spend: $200 | Stackable: Yes\nOFFER-002 | United Airlines | 3x Ultimate Rewards points on United.com bookings | Expires: May 31, 2026 | Category: Travel-Air | Min spend: $150 | Stackable: No\nOFFER-003 | Marriott Bonvoy | $50 statement credit on stays of 2+ nights booked direct | Expires: July 15, 2026 | Category: Travel-Hotel | Min spend: $300 | Stackable: Yes\nOFFER-004 | Hyatt Hotels | 10% off total bill on World of Hyatt direct bookings | Expires: June 1, 2026 | Category: Travel-Hotel | Min spend: $200 | Stackable: Yes\nOFFER-005 | Hilton Honors | 5,000 bonus Hilton points per qualifying stay | Expires: August 31, 2026 | Category: Travel-Hotel | No min spend | Stackable: No\nOFFER-006 | Whole Foods Market | 5% cashback on all purchases | Expires: April 30, 2026 | Category: Grocery | Min spend: $50 | Stackable: No\nOFFER-007 | Trader Joe's | 3% cashback on grocery purchases | Expires: May 15, 2026 | Category: Grocery | Min spend: $30 | Stackable: Yes\nOFFER-008 | DoorDash | $10 off orders over $35 | Expires: April 30, 2026 | Category: Food Delivery | Min spend: $35 | Stackable: No\nOFFER-009 | Uber Eats | 15% cashback on first 3 orders this month | Expires: May 31, 2026 | Category: Food Delivery | No min spend | Stackable: No\nOFFER-010 | OpenTable | $20 statement credit after 5 qualifying dining reservations | Expires: June 30, 2026 | Category: Dining | Min: 5 reservations | Stackable: Yes\nOFFER-011 | Resy | 10% off tasting menu bookings at participating restaurants | Expires: May 15, 2026 | Category: Dining-Premium | Min spend: $100 | Stackable: Yes\nOFFER-012 | Amazon | 3% cashback on all Amazon.com purchases | Expires: June 30, 2026 | Category: Shopping-Online | No min spend | Stackable: No\nOFFER-013 | Best Buy | $25 statement credit on electronics purchases over $200 | Expires: April 30, 2026 | Category: Electronics | Min spend: $200 | Stackable: No\nOFFER-014 | Apple Store | 5% cashback on all Apple products and accessories | Expires: May 31, 2026 | Category: Electronics | Min spend: $100 | Stackable: Yes\nOFFER-015 | Netflix | $5/month statement credit for 3 months | Expires: Ongoing | Category: Streaming | No min spend | Stackable: No\nOFFER-016 | Spotify | 3 months of Spotify Premium at 50% off | Expires: May 1, 2026 | Category: Streaming | New subscribers only | Stackable: No\nOFFER-017 | Shell Gas Stations | 5 cents off per gallon at Shell locations | Expires: June 30, 2026 | Category: Gas-Fuel | No min spend | Stackable: Yes\nOFFER-018 | ExxonMobil | 3% cashback on fuel purchases at Exxon and Mobil | Expires: May 31, 2026 | Category: Gas-Fuel | Min spend: $20 | Stackable: No\nOFFER-019 | National Car Rental | 10% off base rental rate for Emerald Club members | Expires: July 31, 2026 | Category: Car-Rental | No min spend | Stackable: Yes\nOFFER-020 | Hertz | $15 off any weekly car rental | Expires: June 30, 2026 | Category: Car-Rental | Min rental: 3 days | Stackable: No\nOFFER-021 | Avis | Double points on all rental transactions | Expires: May 31, 2026 | Category: Car-Rental | No min spend | Stackable: No\nOFFER-022 | Saks Fifth Avenue | 2% cashback on all Saks purchases | Expires: June 30, 2026 | Category: Luxury-Retail | Min spend: $100 | Stackable: Yes\nOFFER-023 | Nordstrom | $30 statement credit on orders over $150 | Expires: April 30, 2026 | Category: Retail-Apparel | Min spend: $150 | Stackable: No\nOFFER-024 | Nike | 10% cashback on Nike.com purchases | Expires: May 15, 2026 | Category: Apparel-Sports | Min spend: $75 | Stackable: Yes\nOFFER-025 | Peloton | 3 months of Peloton membership free with new hardware purchase | Expires: June 30, 2026 | Category: Fitness | Hardware purchase required | Stackable: No\n\nBased on this customer's profile and upcoming activity, which 3 offers should Marcus activate right now?",
+        "quality_checks": {
+          "type": "field_presence",
+          "required_fields": ["OpenTable", "Whole Foods", "DoorDash"],
+          "min_list_items": 3,
+          "constraints_to_verify": ["dining", "delivery", "grocery"]
+        },
+        "meta": {
+          "approx_input_tokens": 750,
+          "stress_type": "prefill_heavy",
+          "expected_output_tokens": 180
+        }
+      },
+      {
+        "id": "mo_s003",
+        "system": "You are a Chase Offers recommendation engine. Given a customer profile and a list of retrieved merchant offers, identify the top 3 most relevant offers and explain why each matches the customer's preferences and spending behavior. Format your response as a numbered list. Each entry: offer name, the benefit, and one sentence of rationale. Be concise.",
+        "user": "CUSTOMER PROFILE:\nName: Jennifer & Tom K. | Segment: Suburban Family | Primary card: Chase Freedom Flex\nSpending patterns: Costco + Walmart ($1,400/month groceries), Shell gas station ($180/month), Disney+ + Netflix + Hulu ($45/month streaming), Best Buy occasional electronics ($200/month avg), Amazon Subscribe & Save ($200/month)\nUpcoming activity: Back-to-school electronics shopping at Best Buy ($400 planned), monthly grocery run at Whole Foods this Sunday, two kids' sporting events requiring fuel this weekend\nPreferences: Max value on everyday spend, not interested in travel or luxury — prioritize grocery, gas, streaming, and kids-related retail\n\n=== RETRIEVED MERCHANT OFFERS (25 active offers, sorted by retrieval score) ===\n\nOFFER-001 | Delta Air Lines | 5% cashback on flights booked directly at delta.com | Expires: June 30, 2026 | Category: Travel-Air | Min spend: $200 | Stackable: Yes\nOFFER-002 | United Airlines | 3x Ultimate Rewards points on United.com bookings | Expires: May 31, 2026 | Category: Travel-Air | Min spend: $150 | Stackable: No\nOFFER-003 | Marriott Bonvoy | $50 statement credit on stays of 2+ nights booked direct | Expires: July 15, 2026 | Category: Travel-Hotel | Min spend: $300 | Stackable: Yes\nOFFER-004 | Hyatt Hotels | 10% off total bill on World of Hyatt direct bookings | Expires: June 1, 2026 | Category: Travel-Hotel | Min spend: $200 | Stackable: Yes\nOFFER-005 | Hilton Honors | 5,000 bonus Hilton points per qualifying stay | Expires: August 31, 2026 | Category: Travel-Hotel | No min spend | Stackable: No\nOFFER-006 | Whole Foods Market | 5% cashback on all purchases | Expires: April 30, 2026 | Category: Grocery | Min spend: $50 | Stackable: No\nOFFER-007 | Trader Joe's | 3% cashback on grocery purchases | Expires: May 15, 2026 | Category: Grocery | Min spend: $30 | Stackable: Yes\nOFFER-008 | DoorDash | $10 off orders over $35 | Expires: April 30, 2026 | Category: Food Delivery | Min spend: $35 | Stackable: No\nOFFER-009 | Uber Eats | 15% cashback on first 3 orders this month | Expires: May 31, 2026 | Category: Food Delivery | No min spend | Stackable: No\nOFFER-010 | OpenTable | $20 statement credit after 5 qualifying dining reservations | Expires: June 30, 2026 | Category: Dining | Min: 5 reservations | Stackable: Yes\nOFFER-011 | Resy | 10% off tasting menu bookings at participating restaurants | Expires: May 15, 2026 | Category: Dining-Premium | Min spend: $100 | Stackable: Yes\nOFFER-012 | Amazon | 3% cashback on all Amazon.com purchases | Expires: June 30, 2026 | Category: Shopping-Online | No min spend | Stackable: No\nOFFER-013 | Best Buy | $25 statement credit on electronics purchases over $200 | Expires: April 30, 2026 | Category: Electronics | Min spend: $200 | Stackable: No\nOFFER-014 | Apple Store | 5% cashback on all Apple products and accessories | Expires: May 31, 2026 | Category: Electronics | Min spend: $100 | Stackable: Yes\nOFFER-015 | Netflix | $5/month statement credit for 3 months | Expires: Ongoing | Category: Streaming | No min spend | Stackable: No\nOFFER-016 | Spotify | 3 months of Spotify Premium at 50% off | Expires: May 1, 2026 | Category: Streaming | New subscribers only | Stackable: No\nOFFER-017 | Shell Gas Stations | 5 cents off per gallon at Shell locations | Expires: June 30, 2026 | Category: Gas-Fuel | No min spend | Stackable: Yes\nOFFER-018 | ExxonMobil | 3% cashback on fuel purchases at Exxon and Mobil | Expires: May 31, 2026 | Category: Gas-Fuel | Min spend: $20 | Stackable: No\nOFFER-019 | National Car Rental | 10% off base rental rate for Emerald Club members | Expires: July 31, 2026 | Category: Car-Rental | No min spend | Stackable: Yes\nOFFER-020 | Hertz | $15 off any weekly car rental | Expires: June 30, 2026 | Category: Car-Rental | Min rental: 3 days | Stackable: No\nOFFER-021 | Avis | Double points on all rental transactions | Expires: May 31, 2026 | Category: Car-Rental | No min spend | Stackable: No\nOFFER-022 | Saks Fifth Avenue | 2% cashback on all Saks purchases | Expires: June 30, 2026 | Category: Luxury-Retail | Min spend: $100 | Stackable: Yes\nOFFER-023 | Nordstrom | $30 statement credit on orders over $150 | Expires: April 30, 2026 | Category: Retail-Apparel | Min spend: $150 | Stackable: No\nOFFER-024 | Nike | 10% cashback on Nike.com purchases | Expires: May 15, 2026 | Category: Apparel-Sports | Min spend: $75 | Stackable: Yes\nOFFER-025 | Peloton | 3 months of Peloton membership free with new hardware purchase | Expires: June 30, 2026 | Category: Fitness | Hardware purchase required | Stackable: No\n\nBased on this family's profile and upcoming spending plans, which 3 offers should Jennifer and Tom activate right now?",
+        "quality_checks": {
+          "type": "field_presence",
+          "required_fields": ["Best Buy", "Shell", "Netflix"],
+          "min_list_items": 3,
+          "constraints_to_verify": ["electronics", "gas", "grocery", "streaming"]
+        },
+        "meta": {
+          "approx_input_tokens": 760,
+          "stress_type": "prefill_heavy",
+          "expected_output_tokens": 180
+        }
+      },
+      {
+        "id": "mo_s004",
+        "system": "You are a Chase Offers recommendation engine. Given a customer profile and a list of retrieved merchant offers, identify the top 3 most relevant offers and explain why each matches the customer's preferences and spending behavior. Format your response as a numbered list. Each entry: offer name, the benefit, and one sentence of rationale. Be concise.",
+        "user": "CUSTOMER PROFILE:\nName: David L. | Segment: Young Professional | Primary card: Chase Freedom Unlimited\nSpending patterns: Amazon ($400/month), Uber Eats / delivery ($200/month), Spotify Premium subscriber, occasional Nike online ($80/month), incidental streaming (Netflix, no Hulu)\nUpcoming activity: Large Amazon order for apartment furniture ($350 planned this week), new running gear purchase on Nike.com ($120 planned), considering upgrading Spotify plan\nPreferences: Online shopping maximizer, delivery-first lifestyle, values cashback simplicity, not a traveler\n\n=== RETRIEVED MERCHANT OFFERS (25 active offers, sorted by retrieval score) ===\n\nOFFER-001 | Delta Air Lines | 5% cashback on flights booked directly at delta.com | Expires: June 30, 2026 | Category: Travel-Air | Min spend: $200 | Stackable: Yes\nOFFER-002 | United Airlines | 3x Ultimate Rewards points on United.com bookings | Expires: May 31, 2026 | Category: Travel-Air | Min spend: $150 | Stackable: No\nOFFER-003 | Marriott Bonvoy | $50 statement credit on stays of 2+ nights booked direct | Expires: July 15, 2026 | Category: Travel-Hotel | Min spend: $300 | Stackable: Yes\nOFFER-004 | Hyatt Hotels | 10% off total bill on World of Hyatt direct bookings | Expires: June 1, 2026 | Category: Travel-Hotel | Min spend: $200 | Stackable: Yes\nOFFER-005 | Hilton Honors | 5,000 bonus Hilton points per qualifying stay | Expires: August 31, 2026 | Category: Travel-Hotel | No min spend | Stackable: No\nOFFER-006 | Whole Foods Market | 5% cashback on all purchases | Expires: April 30, 2026 | Category: Grocery | Min spend: $50 | Stackable: No\nOFFER-007 | Trader Joe's | 3% cashback on grocery purchases | Expires: May 15, 2026 | Category: Grocery | Min spend: $30 | Stackable: Yes\nOFFER-008 | DoorDash | $10 off orders over $35 | Expires: April 30, 2026 | Category: Food Delivery | Min spend: $35 | Stackable: No\nOFFER-009 | Uber Eats | 15% cashback on first 3 orders this month | Expires: May 31, 2026 | Category: Food Delivery | No min spend | Stackable: No\nOFFER-010 | OpenTable | $20 statement credit after 5 qualifying dining reservations | Expires: June 30, 2026 | Category: Dining | Min: 5 reservations | Stackable: Yes\nOFFER-011 | Resy | 10% off tasting menu bookings at participating restaurants | Expires: May 15, 2026 | Category: Dining-Premium | Min spend: $100 | Stackable: Yes\nOFFER-012 | Amazon | 3% cashback on all Amazon.com purchases | Expires: June 30, 2026 | Category: Shopping-Online | No min spend | Stackable: No\nOFFER-013 | Best Buy | $25 statement credit on electronics purchases over $200 | Expires: April 30, 2026 | Category: Electronics | Min spend: $200 | Stackable: No\nOFFER-014 | Apple Store | 5% cashback on all Apple products and accessories | Expires: May 31, 2026 | Category: Electronics | Min spend: $100 | Stackable: Yes\nOFFER-015 | Netflix | $5/month statement credit for 3 months | Expires: Ongoing | Category: Streaming | No min spend | Stackable: No\nOFFER-016 | Spotify | 3 months of Spotify Premium at 50% off | Expires: May 1, 2026 | Category: Streaming | New subscribers only | Stackable: No\nOFFER-017 | Shell Gas Stations | 5 cents off per gallon at Shell locations | Expires: June 30, 2026 | Category: Gas-Fuel | No min spend | Stackable: Yes\nOFFER-018 | ExxonMobil | 3% cashback on fuel purchases at Exxon and Mobil | Expires: May 31, 2026 | Category: Gas-Fuel | Min spend: $20 | Stackable: No\nOFFER-019 | National Car Rental | 10% off base rental rate for Emerald Club members | Expires: July 31, 2026 | Category: Car-Rental | No min spend | Stackable: Yes\nOFFER-020 | Hertz | $15 off any weekly car rental | Expires: June 30, 2026 | Category: Car-Rental | Min rental: 3 days | Stackable: No\nOFFER-021 | Avis | Double points on all rental transactions | Expires: May 31, 2026 | Category: Car-Rental | No min spend | Stackable: No\nOFFER-022 | Saks Fifth Avenue | 2% cashback on all Saks purchases | Expires: June 30, 2026 | Category: Luxury-Retail | Min spend: $100 | Stackable: Yes\nOFFER-023 | Nordstrom | $30 statement credit on orders over $150 | Expires: April 30, 2026 | Category: Retail-Apparel | Min spend: $150 | Stackable: No\nOFFER-024 | Nike | 10% cashback on Nike.com purchases | Expires: May 15, 2026 | Category: Apparel-Sports | Min spend: $75 | Stackable: Yes\nOFFER-025 | Peloton | 3 months of Peloton membership free with new hardware purchase | Expires: June 30, 2026 | Category: Fitness | Hardware purchase required | Stackable: No\n\nBased on this customer's profile and upcoming purchases, which 3 offers should David activate right now?",
+        "quality_checks": {
+          "type": "field_presence",
+          "required_fields": ["Amazon", "Nike", "Uber Eats"],
+          "min_list_items": 3,
+          "constraints_to_verify": ["Amazon", "Nike", "delivery"]
+        },
+        "meta": {
+          "approx_input_tokens": 750,
+          "stress_type": "prefill_heavy",
+          "expected_output_tokens": 180
+        }
+      },
+      {
+        "id": "mo_s005",
+        "system": "You are a Chase Offers recommendation engine. Given a customer profile and a list of retrieved merchant offers, identify the top 3 most relevant offers and explain why each matches the customer's preferences and spending behavior. Format your response as a numbered list. Each entry: offer name, the benefit, and one sentence of rationale. Be concise.",
+        "user": "CUSTOMER PROFILE:\nName: Rachel N. | Segment: Business Traveler | Primary card: Chase Ink Business Preferred\nSpending patterns: United Airlines ($2,000/month), Marriott Hotels ($1,500/month), National Car Rental ($400/month), Apple hardware purchases ($300/month avg), client entertainment dining ($800/month)\nUpcoming activity: Monthly United flight to SF on Friday, Marriott stay in SF for 4 nights, renting a National car for client visits, planning a client dinner at a Resy-listed restaurant\nPreferences: Maximizes business travel points, values Marriott/United loyalty, needs practical receipts and expense management\n\n=== RETRIEVED MERCHANT OFFERS (25 active offers, sorted by retrieval score) ===\n\nOFFER-001 | Delta Air Lines | 5% cashback on flights booked directly at delta.com | Expires: June 30, 2026 | Category: Travel-Air | Min spend: $200 | Stackable: Yes\nOFFER-002 | United Airlines | 3x Ultimate Rewards points on United.com bookings | Expires: May 31, 2026 | Category: Travel-Air | Min spend: $150 | Stackable: No\nOFFER-003 | Marriott Bonvoy | $50 statement credit on stays of 2+ nights booked direct | Expires: July 15, 2026 | Category: Travel-Hotel | Min spend: $300 | Stackable: Yes\nOFFER-004 | Hyatt Hotels | 10% off total bill on World of Hyatt direct bookings | Expires: June 1, 2026 | Category: Travel-Hotel | Min spend: $200 | Stackable: Yes\nOFFER-005 | Hilton Honors | 5,000 bonus Hilton points per qualifying stay | Expires: August 31, 2026 | Category: Travel-Hotel | No min spend | Stackable: No\nOFFER-006 | Whole Foods Market | 5% cashback on all purchases | Expires: April 30, 2026 | Category: Grocery | Min spend: $50 | Stackable: No\nOFFER-007 | Trader Joe's | 3% cashback on grocery purchases | Expires: May 15, 2026 | Category: Grocery | Min spend: $30 | Stackable: Yes\nOFFER-008 | DoorDash | $10 off orders over $35 | Expires: April 30, 2026 | Category: Food Delivery | Min spend: $35 | Stackable: No\nOFFER-009 | Uber Eats | 15% cashback on first 3 orders this month | Expires: May 31, 2026 | Category: Food Delivery | No min spend | Stackable: No\nOFFER-010 | OpenTable | $20 statement credit after 5 qualifying dining reservations | Expires: June 30, 2026 | Category: Dining | Min: 5 reservations | Stackable: Yes\nOFFER-011 | Resy | 10% off tasting menu bookings at participating restaurants | Expires: May 15, 2026 | Category: Dining-Premium | Min spend: $100 | Stackable: Yes\nOFFER-012 | Amazon | 3% cashback on all Amazon.com purchases | Expires: June 30, 2026 | Category: Shopping-Online | No min spend | Stackable: No\nOFFER-013 | Best Buy | $25 statement credit on electronics purchases over $200 | Expires: April 30, 2026 | Category: Electronics | Min spend: $200 | Stackable: No\nOFFER-014 | Apple Store | 5% cashback on all Apple products and accessories | Expires: May 31, 2026 | Category: Electronics | Min spend: $100 | Stackable: Yes\nOFFER-015 | Netflix | $5/month statement credit for 3 months | Expires: Ongoing | Category: Streaming | No min spend | Stackable: No\nOFFER-016 | Spotify | 3 months of Spotify Premium at 50% off | Expires: May 1, 2026 | Category: Streaming | New subscribers only | Stackable: No\nOFFER-017 | Shell Gas Stations | 5 cents off per gallon at Shell locations | Expires: June 30, 2026 | Category: Gas-Fuel | No min spend | Stackable: Yes\nOFFER-018 | ExxonMobil | 3% cashback on fuel purchases at Exxon and Mobil | Expires: May 31, 2026 | Category: Gas-Fuel | Min spend: $20 | Stackable: No\nOFFER-019 | National Car Rental | 10% off base rental rate for Emerald Club members | Expires: July 31, 2026 | Category: Car-Rental | No min spend | Stackable: Yes\nOFFER-020 | Hertz | $15 off any weekly car rental | Expires: June 30, 2026 | Category: Car-Rental | Min rental: 3 days | Stackable: No\nOFFER-021 | Avis | Double points on all rental transactions | Expires: May 31, 2026 | Category: Car-Rental | No min spend | Stackable: No\nOFFER-022 | Saks Fifth Avenue | 2% cashback on all Saks purchases | Expires: June 30, 2026 | Category: Luxury-Retail | Min spend: $100 | Stackable: Yes\nOFFER-023 | Nordstrom | $30 statement credit on orders over $150 | Expires: April 30, 2026 | Category: Retail-Apparel | Min spend: $150 | Stackable: No\nOFFER-024 | Nike | 10% cashback on Nike.com purchases | Expires: May 15, 2026 | Category: Apparel-Sports | Min spend: $75 | Stackable: Yes\nOFFER-025 | Peloton | 3 months of Peloton membership free with new hardware purchase | Expires: June 30, 2026 | Category: Fitness | Hardware purchase required | Stackable: No\n\nBased on Rachel's profile and this week's travel plans, which 3 offers should she activate right now?",
+        "quality_checks": {
+          "type": "field_presence",
+          "required_fields": ["United", "Marriott", "National"],
+          "min_list_items": 3,
+          "constraints_to_verify": ["United Airlines", "Marriott", "National Car Rental"]
+        },
+        "meta": {
+          "approx_input_tokens": 755,
+          "stress_type": "prefill_heavy",
+          "expected_output_tokens": 180
+        }
+      },
+      {
+        "id": "mo_s006",
+        "system": "You are a Chase Offers recommendation engine. Given a customer profile and a list of retrieved merchant offers, identify the top 3 most relevant offers and explain why each matches the customer's preferences and spending behavior. Format your response as a numbered list. Each entry: offer name, the benefit, and one sentence of rationale. Be concise.",
+        "user": "CUSTOMER PROFILE:\nName: Alex P. | Segment: Health & Fitness Enthusiast | Primary card: Chase Sapphire Preferred\nSpending patterns: Whole Foods ($350/month), Peloton active member (considering hardware upgrade), Apple Watch accessories ($100/month avg), Nike apparel ($150/month), occasional Saks for activewear ($100/month)\nUpcoming activity: Considering Peloton Bike+ purchase ($2,495), restocking Whole Foods this Saturday, new Nike running shoes planned next week\nPreferences: Health-conscious spending, values fitness and wellness offers, premium brand loyalty, occasional luxury retail\n\n=== RETRIEVED MERCHANT OFFERS (25 active offers, sorted by retrieval score) ===\n\nOFFER-001 | Delta Air Lines | 5% cashback on flights booked directly at delta.com | Expires: June 30, 2026 | Category: Travel-Air | Min spend: $200 | Stackable: Yes\nOFFER-002 | United Airlines | 3x Ultimate Rewards points on United.com bookings | Expires: May 31, 2026 | Category: Travel-Air | Min spend: $150 | Stackable: No\nOFFER-003 | Marriott Bonvoy | $50 statement credit on stays of 2+ nights booked direct | Expires: July 15, 2026 | Category: Travel-Hotel | Min spend: $300 | Stackable: Yes\nOFFER-004 | Hyatt Hotels | 10% off total bill on World of Hyatt direct bookings | Expires: June 1, 2026 | Category: Travel-Hotel | Min spend: $200 | Stackable: Yes\nOFFER-005 | Hilton Honors | 5,000 bonus Hilton points per qualifying stay | Expires: August 31, 2026 | Category: Travel-Hotel | No min spend | Stackable: No\nOFFER-006 | Whole Foods Market | 5% cashback on all purchases | Expires: April 30, 2026 | Category: Grocery | Min spend: $50 | Stackable: No\nOFFER-007 | Trader Joe's | 3% cashback on grocery purchases | Expires: May 15, 2026 | Category: Grocery | Min spend: $30 | Stackable: Yes\nOFFER-008 | DoorDash | $10 off orders over $35 | Expires: April 30, 2026 | Category: Food Delivery | Min spend: $35 | Stackable: No\nOFFER-009 | Uber Eats | 15% cashback on first 3 orders this month | Expires: May 31, 2026 | Category: Food Delivery | No min spend | Stackable: No\nOFFER-010 | OpenTable | $20 statement credit after 5 qualifying dining reservations | Expires: June 30, 2026 | Category: Dining | Min: 5 reservations | Stackable: Yes\nOFFER-011 | Resy | 10% off tasting menu bookings at participating restaurants | Expires: May 15, 2026 | Category: Dining-Premium | Min spend: $100 | Stackable: Yes\nOFFER-012 | Amazon | 3% cashback on all Amazon.com purchases | Expires: June 30, 2026 | Category: Shopping-Online | No min spend | Stackable: No\nOFFER-013 | Best Buy | $25 statement credit on electronics purchases over $200 | Expires: April 30, 2026 | Category: Electronics | Min spend: $200 | Stackable: No\nOFFER-014 | Apple Store | 5% cashback on all Apple products and accessories | Expires: May 31, 2026 | Category: Electronics | Min spend: $100 | Stackable: Yes\nOFFER-015 | Netflix | $5/month statement credit for 3 months | Expires: Ongoing | Category: Streaming | No min spend | Stackable: No\nOFFER-016 | Spotify | 3 months of Spotify Premium at 50% off | Expires: May 1, 2026 | Category: Streaming | New subscribers only | Stackable: No\nOFFER-017 | Shell Gas Stations | 5 cents off per gallon at Shell locations | Expires: June 30, 2026 | Category: Gas-Fuel | No min spend | Stackable: Yes\nOFFER-018 | ExxonMobil | 3% cashback on fuel purchases at Exxon and Mobil | Expires: May 31, 2026 | Category: Gas-Fuel | Min spend: $20 | Stackable: No\nOFFER-019 | National Car Rental | 10% off base rental rate for Emerald Club members | Expires: July 31, 2026 | Category: Car-Rental | No min spend | Stackable: Yes\nOFFER-020 | Hertz | $15 off any weekly car rental | Expires: June 30, 2026 | Category: Car-Rental | Min rental: 3 days | Stackable: No\nOFFER-021 | Avis | Double points on all rental transactions | Expires: May 31, 2026 | Category: Car-Rental | No min spend | Stackable: No\nOFFER-022 | Saks Fifth Avenue | 2% cashback on all Saks purchases | Expires: June 30, 2026 | Category: Luxury-Retail | Min spend: $100 | Stackable: Yes\nOFFER-023 | Nordstrom | $30 statement credit on orders over $150 | Expires: April 30, 2026 | Category: Retail-Apparel | Min spend: $150 | Stackable: No\nOFFER-024 | Nike | 10% cashback on Nike.com purchases | Expires: May 15, 2026 | Category: Apparel-Sports | Min spend: $75 | Stackable: Yes\nOFFER-025 | Peloton | 3 months of Peloton membership free with new hardware purchase | Expires: June 30, 2026 | Category: Fitness | Hardware purchase required | Stackable: No\n\nBased on Alex's profile and upcoming purchases, which 3 offers should they activate right now?",
+        "quality_checks": {
+          "type": "field_presence",
+          "required_fields": ["Peloton", "Nike", "Whole Foods"],
+          "min_list_items": 3,
+          "constraints_to_verify": ["Peloton", "Nike", "Whole Foods"]
+        },
+        "meta": {
+          "approx_input_tokens": 755,
+          "stress_type": "prefill_heavy",
+          "expected_output_tokens": 180
+        }
+      }
+    ],
+
+    "multi_turn": [
+      {
+        "id": "mt_s001",
+        "system": "You are a Chase personalization assistant helping a customer plan business travel. You have been conversing with this customer and must honor all preferences they have mentioned earlier in the conversation when responding to their latest request.",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Hi, I need help planning a business trip to Seattle next month."
+          },
+          {
+            "role": "assistant",
+            "content": "Happy to help with your Seattle trip! To give you the best recommendations, could you share your travel dates, hotel budget, and any card benefits you'd like to use?"
+          },
+          {
+            "role": "user",
+            "content": "I'll be there May 12-15. I prefer Hyatt properties when possible — I'm a Globalist member. Hotel budget is around $220 per night. Please no flights before 8 AM, I can't do early mornings."
+          },
+          {
+            "role": "assistant",
+            "content": "Noted — Hyatt Globalist, up to $220/night, and no flights before 8 AM. For Seattle, the Hyatt Regency Seattle and Andaz Seattle are both well-regarded options in that budget range. I'll keep your flight timing preference in mind. Anything else to factor in?"
+          },
+          {
+            "role": "user",
+            "content": "Also I eat plant-based — so any dinner recommendations should be vegan-friendly. I'll have two client dinners to plan."
+          },
+          {
+            "role": "assistant",
+            "content": "Got it — vegan-friendly client dinners. Seattle has a strong plant-based dining scene. Plum Bistro in Capitol Hill is a well-regarded all-vegan restaurant suitable for business dining. Café Flora is another excellent option. Both can accommodate larger parties with advance notice."
+          },
+          {
+            "role": "user",
+            "content": "Perfect. Now can you give me two specific hotel options that meet my criteria and confirm the two dinner spots? I want to walk into this trip with everything booked."
+          }
+        ],
+        "quality_checks": {
+          "type": "field_presence",
+          "required_fields": ["Hyatt", "vegan", "dinner", "hotel", "Seattle"],
+          "min_list_items": 2,
+          "constraints_to_verify": ["Hyatt", "vegan", "$220", "no early flights"]
+        },
+        "meta": {
+          "approx_input_tokens": 310,
+          "stress_type": "balanced",
+          "expected_output_tokens": 280,
+          "turns": 4
+        }
+      },
+      {
+        "id": "mt_s002",
+        "system": "You are a Chase credit card advisor helping a customer find the right card. You have been conversing with this customer and must honor all preferences and facts they have mentioned earlier in the conversation when responding to their latest request.",
+        "messages": [
+          {
+            "role": "user",
+            "content": "I'm thinking about getting a new Chase credit card. I'm not sure where to start."
+          },
+          {
+            "role": "assistant",
+            "content": "I can help with that! To find the best fit, tell me about your biggest spending categories and whether you prioritize travel rewards, cashback, or something else."
+          },
+          {
+            "role": "user",
+            "content": "Mostly travel. I fly a lot — probably $15,000 per year on flights. I also spend about $6,000 on hotels."
+          },
+          {
+            "role": "assistant",
+            "content": "With $21,000 in annual travel spend, a premium travel card makes strong sense. The Chase Sapphire Reserve would likely offer the best return — it earns 3x on travel, includes a $300 travel credit, and gives you Priority Pass lounge access. The $550 annual fee offsets quickly at your spend level."
+          },
+          {
+            "role": "user",
+            "content": "Actually I also run a small consulting business on the side. About $30,000 in business expenses annually — software, client meals, advertising."
+          },
+          {
+            "role": "assistant",
+            "content": "That changes the picture a bit. You might benefit from a two-card strategy: the Chase Sapphire Reserve for personal travel and the Ink Business Preferred for your business spend, which earns 3x on travel, shipping, advertising, and internet/phone. Both cards earn Ultimate Rewards points that pool together."
+          },
+          {
+            "role": "user",
+            "content": "Interesting. One more thing — I'm planning to use the points to fly business class to Japan next year. That's really my goal. Given everything I've told you, what's the best card strategy and what's the realistic timeline for earning enough points for that trip?"
+          }
+        ],
+        "quality_checks": {
+          "type": "field_presence",
+          "required_fields": ["Sapphire Reserve", "Ink", "points", "Japan", "Ultimate Rewards"],
+          "min_list_items": 2,
+          "constraints_to_verify": ["business class", "Japan", "$15,000 flights", "business expenses"]
+        },
+        "meta": {
+          "approx_input_tokens": 350,
+          "stress_type": "balanced",
+          "expected_output_tokens": 320,
+          "turns": 4
+        }
+      },
+      {
+        "id": "mt_s003",
+        "system": "You are a Chase dining concierge helping a customer plan a group dinner. You have been conversing with this customer and must honor all preferences and constraints mentioned earlier in the conversation.",
+        "messages": [
+          {
+            "role": "user",
+            "content": "I need to plan a group dinner in Manhattan for next Saturday night."
+          },
+          {
+            "role": "assistant",
+            "content": "Happy to help! How many people are attending, and do you have a cuisine preference or a budget per person in mind?"
+          },
+          {
+            "role": "user",
+            "content": "It's a group of 9. We'd love Italian or Japanese — either works. Budget is around $90 per person including drinks."
+          },
+          {
+            "role": "assistant",
+            "content": "Got it — party of 9, Italian or Japanese, $90/person including drinks. For Italian at that budget, Carbone or Via Carota come to mind, though Carbone is very difficult to book. For Japanese, Nobu Downtown or Sushi Nakazawa could work, though Nakazawa may run over budget. Let me know about any dietary restrictions and I can narrow it down."
+          },
+          {
+            "role": "user",
+            "content": "One person is vegetarian and one keeps kosher — so we need a restaurant that can accommodate both. Also, two people in the group are gluten-sensitive (not celiac, just prefer to avoid it)."
+          },
+          {
+            "role": "assistant",
+            "content": "Noted — vegetarian, kosher-accommodating, and gluten-sensitive options needed for a party of 9. That does rule out strict traditional omakase formats. A restaurant with a flexible à la carte menu would serve everyone better. I'll prioritize places with documented dietary accommodation experience."
+          },
+          {
+            "role": "user",
+            "content": "Also one more thing — two people in the group are visiting from out of town and really want an iconic NYC experience. It shouldn't feel like a chain or a tourist trap, but it should feel distinctly New York. Can you give me a final recommendation with your top pick, the rationale, and a note on how far in advance we need to book for a party of 9?"
+          }
+        ],
+        "quality_checks": {
+          "type": "field_presence",
+          "required_fields": ["vegetarian", "kosher", "gluten", "reservation", "party of 9"],
+          "min_list_items": 1,
+          "constraints_to_verify": ["vegetarian", "kosher", "gluten", "$90", "9 people"]
+        },
+        "meta": {
+          "approx_input_tokens": 370,
+          "stress_type": "balanced",
+          "expected_output_tokens": 300,
+          "turns": 4
+        }
+      },
+      {
+        "id": "mt_s004",
+        "system": "You are a Chase travel concierge helping a family plan a vacation. You have been conversing with this family and must honor all constraints and preferences mentioned earlier in the conversation.",
+        "messages": [
+          {
+            "role": "user",
+            "content": "We want to plan a family vacation for this summer. Any suggestions?"
+          },
+          {
+            "role": "assistant",
+            "content": "Of course! To point you in the right direction, how many people are traveling, what's your approximate budget, and do you prefer beach, mountains, city, or something else?"
+          },
+          {
+            "role": "user",
+            "content": "Two adults and two kids. The kids are 6 and 9 years old. We're flexible on destination but want something fun for the kids."
+          },
+          {
+            "role": "assistant",
+            "content": "Great — family of four, kids 6 and 9. Popular options in that age range include beach destinations like Outer Banks or Hilton Head, or activity-focused trips to national parks like Yellowstone or Zion. Do you have a budget range in mind?"
+          },
+          {
+            "role": "user",
+            "content": "Total trip budget is around $4,000 including flights and hotel. And we've already done Disney twice — please don't suggest Disney-related things. The kids are kind of over it."
+          },
+          {
+            "role": "assistant",
+            "content": "Understood — $4,000 total, no Disney. That's a reasonable budget for a week-long domestic trip. Some strong contenders: Yellowstone/Grand Teton (flying into Jackson Hole), Outer Banks, NC (drive or fly into Norfolk), or even a road trip around coastal Maine. Want me to focus on any specific region?"
+          },
+          {
+            "role": "user",
+            "content": "We're flying from Atlanta. And actually the 9-year-old is really into marine life — she loves the ocean and would love seeing sea turtles or dolphins. The 6-year-old just wants a pool and a beach. Can you give us your best recommendation for a specific destination and accommodation with a brief itinerary idea for 7 days?",
+            "role_check": "final_turn"
+          }
+        ],
+        "quality_checks": {
+          "type": "field_presence",
+          "required_fields": ["destination", "hotel", "beach", "pool", "marine"],
+          "min_list_items": 1,
+          "constraints_to_verify": ["$4,000", "no Disney", "marine life", "Atlanta", "7 days"]
+        },
+        "meta": {
+          "approx_input_tokens": 380,
+          "stress_type": "balanced",
+          "expected_output_tokens": 380,
+          "turns": 4
+        }
+      },
+      {
+        "id": "mt_s005",
+        "system": "You are a Chase Offers assistant helping a customer decide which offers to activate before an upcoming trip. You have been conversing with this customer and must honor all context mentioned earlier in the conversation.",
+        "messages": [
+          {
+            "role": "user",
+            "content": "I have a bunch of Chase Offers available and I want to make sure I'm activating the right ones before my trip next week."
+          },
+          {
+            "role": "assistant",
+            "content": "Happy to help you prioritize. Tell me where you're traveling and what your plans look like — flights, hotel, car rental, dining — and I'll match the offers that make the most sense to activate now."
+          },
+          {
+            "role": "user",
+            "content": "I'm flying United to Miami on Thursday. Round trip, around $420 total."
+          },
+          {
+            "role": "assistant",
+            "content": "Great — United flight to Miami, $420 round trip. If there's a United Airlines Chase Offer available, activating it before booking (or if already booked, before the charge posts) would give you points or cashback on that purchase directly."
+          },
+          {
+            "role": "user",
+            "content": "I also have a 4-night stay at the Marriott Biscayne Bay. And I'll be renting a car — probably from Hertz for 3 days."
+          },
+          {
+            "role": "assistant",
+            "content": "Perfect — Marriott stay and Hertz rental on top of the United flight. That's three categories with strong potential for Chase Offers. A Marriott offer with a statement credit on 2+ night stays would apply directly. A Hertz offer (e.g., $15 off weekly or per-rental) would cover your 3-day rental if the minimum rental duration qualifies."
+          },
+          {
+            "role": "user",
+            "content": "And I'm planning two nice dinners while I'm in Miami — probably upscale restaurants, nothing casual. I also might hit a Whole Foods for some breakfast items each morning rather than paying for hotel breakfast. Given all of this, which offers should I absolutely activate before I leave Thursday — and in what order of priority?"
+          }
+        ],
+        "quality_checks": {
+          "type": "field_presence",
+          "required_fields": ["United", "Marriott", "Hertz", "dining", "Whole Foods"],
+          "min_list_items": 3,
+          "constraints_to_verify": ["United", "Marriott", "Hertz", "Thursday", "priority"]
+        },
+        "meta": {
+          "approx_input_tokens": 390,
+          "stress_type": "balanced",
+          "expected_output_tokens": 280,
+          "turns": 4
+        }
+      }
+    ],
+
+    "structured_json": [
+      {
+        "id": "sj_s001",
+        "system": "You are a Chase personalization API. Respond ONLY with valid JSON. Do not include any explanation, markdown formatting, or text outside of the JSON object. Follow the schema exactly as specified.",
+        "user": "Generate a credit card recommendation for the following customer profile:\n\nCustomer: 34-year-old professional, $13,000/year on flights, $7,000/year on hotels, $5,000/year on dining, no current travel card, wants lounge access and Global Entry credit.\n\nReturn a JSON object with this exact schema:\n{\n  \"recommended_card\": string,\n  \"annual_fee\": number,\n  \"sign_up_bonus\": string,\n  \"key_benefits\": [string, string, string],\n  \"estimated_annual_value\": number,\n  \"fit_score\": number (0-100),\n  \"vs_alternatives\": [\n    {\"card_name\": string, \"reason_not_chosen\": string}\n  ]\n}",
+        "quality_checks": {
+          "type": "json_schema",
+          "required_keys": ["recommended_card", "annual_fee", "sign_up_bonus", "key_benefits", "estimated_annual_value", "fit_score", "vs_alternatives"],
+          "array_fields": {"key_benefits": 3, "vs_alternatives": 1},
+          "numeric_fields": ["annual_fee", "estimated_annual_value", "fit_score"],
+          "value_constraints": {"fit_score": {"min": 0, "max": 100}}
+        },
+        "meta": {
+          "approx_input_tokens": 175,
+          "stress_type": "balanced",
+          "expected_output_tokens": 200
+        }
+      },
+      {
+        "id": "sj_s002",
+        "system": "You are a Chase personalization API. Respond ONLY with valid JSON. Do not include any explanation, markdown formatting, or text outside of the JSON object. Follow the schema exactly as specified.",
+        "user": "Generate a travel itinerary for the following request:\n\nCustomer wants a 4-night trip to New Orleans. Budget: $1,800 total (flights from NYC + hotel + activities). Interests: jazz, Creole food, history, walking tours. Travel dates: May 2-6.\n\nReturn a JSON object with this exact schema:\n{\n  \"destination\": string,\n  \"dates\": {\"arrival\": string, \"departure\": string, \"nights\": number},\n  \"estimated_total_cost\": number,\n  \"hotel\": {\"name\": string, \"neighborhood\": string, \"nightly_rate\": number, \"why_chosen\": string},\n  \"daily_highlights\": [\n    {\"day\": number, \"morning\": string, \"afternoon\": string, \"evening\": string, \"dining\": string}\n  ],\n  \"top_tips\": [string]\n}",
+        "quality_checks": {
+          "type": "json_schema",
+          "required_keys": ["destination", "dates", "estimated_total_cost", "hotel", "daily_highlights", "top_tips"],
+          "array_fields": {"daily_highlights": 4, "top_tips": 2},
+          "nested_keys": {"dates": ["arrival", "departure", "nights"], "hotel": ["name", "neighborhood", "nightly_rate"]}
+        },
+        "meta": {
+          "approx_input_tokens": 190,
+          "stress_type": "balanced",
+          "expected_output_tokens": 400
+        }
+      },
+      {
+        "id": "sj_s003",
+        "system": "You are a Chase personalization API. Respond ONLY with valid JSON. Do not include any explanation, markdown formatting, or text outside of the JSON object. Follow the schema exactly as specified.",
+        "user": "Generate an offer activation recommendation for the following customer:\n\nCustomer ID: CUST-88421. Upcoming activity: Delta flight to London ($1,100), 5-night Hilton stay ($220/night), Hertz rental (4 days), two Resy restaurant reservations.\n\nReturn a JSON object with this exact schema:\n{\n  \"customer_id\": string,\n  \"activation_timestamp\": string,\n  \"recommended_offers\": [\n    {\n      \"offer_id\": string,\n      \"merchant\": string,\n      \"benefit_description\": string,\n      \"estimated_savings\": number,\n      \"activation_deadline\": string,\n      \"priority_rank\": number\n    }\n  ],\n  \"total_estimated_savings\": number,\n  \"activation_urgency\": string\n}",
+        "quality_checks": {
+          "type": "json_schema",
+          "required_keys": ["customer_id", "activation_timestamp", "recommended_offers", "total_estimated_savings", "activation_urgency"],
+          "array_fields": {"recommended_offers": 3},
+          "nested_keys": {"recommended_offers[0]": ["offer_id", "merchant", "benefit_description", "estimated_savings", "priority_rank"]}
+        },
+        "meta": {
+          "approx_input_tokens": 185,
+          "stress_type": "balanced",
+          "expected_output_tokens": 350
+        }
+      },
+      {
+        "id": "sj_s004",
+        "system": "You are a Chase personalization API. Respond ONLY with valid JSON. Do not include any explanation, markdown formatting, or text outside of the JSON object. Follow the schema exactly as specified.",
+        "user": "Generate a restaurant recommendation list for the following request:\n\nCustomer looking for dinner options in Boston. Group of 2, budget $120/person, occasion is a birthday celebration. Cuisine preference: modern American or seafood. No dietary restrictions.\n\nReturn a JSON object with this exact schema:\n{\n  \"city\": string,\n  \"occasion\": string,\n  \"restaurants\": [\n    {\n      \"name\": string,\n      \"cuisine\": string,\n      \"price_range\": string,\n      \"neighborhood\": string,\n      \"why_recommended\": string,\n      \"reservation_required\": boolean,\n      \"advance_booking_days\": number,\n      \"chase_offer_eligible\": boolean\n    }\n  ],\n  \"top_pick\": string,\n  \"booking_note\": string\n}",
+        "quality_checks": {
+          "type": "json_schema",
+          "required_keys": ["city", "occasion", "restaurants", "top_pick", "booking_note"],
+          "array_fields": {"restaurants": 3},
+          "nested_keys": {"restaurants[0]": ["name", "cuisine", "price_range", "reservation_required", "advance_booking_days"]}
+        },
+        "meta": {
+          "approx_input_tokens": 185,
+          "stress_type": "balanced",
+          "expected_output_tokens": 380
+        }
+      },
+      {
+        "id": "sj_s005",
+        "system": "You are a Chase personalization API. Respond ONLY with valid JSON. Do not include any explanation, markdown formatting, or text outside of the JSON object. Follow the schema exactly as specified.",
+        "user": "Analyze the following customer spending and generate a product optimization summary:\n\nCustomer profile: Annual spend — groceries $18,000, gas $3,200, dining $8,500, travel $22,000, streaming $720, other $6,000. Current card: Chase Freedom Unlimited (1.5% flat cashback). Goal: maximize rewards value.\n\nReturn a JSON object with this exact schema:\n{\n  \"current_card\": string,\n  \"current_estimated_annual_rewards\": number,\n  \"spending_profile\": {\n    \"top_category\": string,\n    \"top_category_spend\": number,\n    \"total_annual_spend\": number\n  },\n  \"recommended_strategy\": [\n    {\n      \"card_name\": string,\n      \"role\": string,\n      \"categories_to_use_for\": [string],\n      \"estimated_annual_rewards\": number\n    }\n  ],\n  \"total_optimized_rewards\": number,\n  \"incremental_value_vs_current\": number,\n  \"recommendation_summary\": string\n}",
+        "quality_checks": {
+          "type": "json_schema",
+          "required_keys": ["current_card", "current_estimated_annual_rewards", "spending_profile", "recommended_strategy", "total_optimized_rewards", "incremental_value_vs_current", "recommendation_summary"],
+          "array_fields": {"recommended_strategy": 1},
+          "numeric_fields": ["current_estimated_annual_rewards", "total_optimized_rewards", "incremental_value_vs_current"],
+          "nested_keys": {"spending_profile": ["top_category", "top_category_spend", "total_annual_spend"]}
+        },
+        "meta": {
+          "approx_input_tokens": 205,
+          "stress_type": "balanced",
+          "expected_output_tokens": 380
+        }
+      },
+      {
+        "id": "sj_s006",
+        "system": "You are a Chase personalization API. Respond ONLY with valid JSON. Do not include any explanation, markdown formatting, or text outside of the JSON object. Follow the schema exactly as specified.",
+        "user": "Generate a multi-card comparison for the following customer:\n\nThe customer spends $10,000/year on travel, $4,000 on dining, $3,000 on groceries, $2,000 on streaming and subscriptions. They want to understand the tradeoffs between the Chase Sapphire Reserve, Chase Sapphire Preferred, and Chase Freedom Flex.\n\nReturn a JSON object with this exact schema:\n{\n  \"comparison\": [\n    {\n      \"card_name\": string,\n      \"annual_fee\": number,\n      \"best_for\": string,\n      \"estimated_annual_rewards_value\": number,\n      \"net_annual_value\": number,\n      \"pros\": [string, string],\n      \"cons\": [string]\n    }\n  ],\n  \"winner\": string,\n  \"winner_rationale\": string,\n  \"alternative_strategy\": string\n}",
+        "quality_checks": {
+          "type": "json_schema",
+          "required_keys": ["comparison", "winner", "winner_rationale", "alternative_strategy"],
+          "array_fields": {"comparison": 3},
+          "nested_keys": {"comparison[0]": ["card_name", "annual_fee", "best_for", "estimated_annual_rewards_value", "net_annual_value", "pros", "cons"]}
+        },
+        "meta": {
+          "approx_input_tokens": 195,
+          "stress_type": "balanced",
+          "expected_output_tokens": 420
+        }
+      }
+    ]
+  }
+}

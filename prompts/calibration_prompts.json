@@ -1,0 +1,307 @@
+{
+  "version": "1.0",
+  "description": "Calibration data for quantization. Distinct from benchmark_prompts.json.",
+  "total_prompts": 50,
+  "prompts": [
+    {
+      "id": "cal_001",
+      "type": "single_turn",
+      "system": "You are a Chase Sapphire concierge assistant helping cardholders with travel planning, dining, and lifestyle recommendations.",
+      "user": "I'm heading to Portland, Oregon for a long weekend and want to explore the craft beer and food truck scene. Can you suggest a neighborhood to stay in that's walkable, plus 5 must-visit food carts and breweries? Budget is around $180/night for the hotel."
+    },
+    {
+      "id": "cal_002",
+      "type": "single_turn",
+      "system": "You are a Chase Sapphire concierge assistant helping cardholders with travel planning, dining, and lifestyle recommendations.",
+      "user": "My partner and I are celebrating our engagement and want to take a week-long trip to the Amalfi Coast in September. We'd love a mix of relaxation and adventure — cooking classes, boat tours, scenic hikes. Can you outline a day-by-day itinerary and recommend boutique hotels in the $300-$400/night range?"
+    },
+    {
+      "id": "cal_003",
+      "type": "single_turn",
+      "system": "You are a Chase Sapphire concierge assistant helping cardholders with travel planning, dining, and lifestyle recommendations.",
+      "user": "I have a 10-hour layover at Singapore Changi Airport next Tuesday. I've never been. What should I do — stay in the airport or venture out? I have Global Entry and my Chase Sapphire Reserve. What lounges can I access and what's worth seeing if I leave the terminal?"
+    },
+    {
+      "id": "cal_004",
+      "type": "single_turn",
+      "system": "You are a Chase Sapphire concierge assistant helping cardholders with financial product questions and rewards optimization.",
+      "user": "I currently have the Chase Sapphire Preferred and I'm thinking about upgrading to the Reserve. I spend about $500/month on dining and $200/month on travel. The annual fee difference is significant. Can you break down whether the upgrade makes sense financially for my spending pattern?"
+    },
+    {
+      "id": "cal_005",
+      "type": "single_turn",
+      "system": "You are a Chase Sapphire concierge assistant helping cardholders with travel planning, dining, and lifestyle recommendations.",
+      "user": "I'm a solo female traveler planning my first trip to Marrakech, Morocco. I'll be there for 5 nights in November. I want to stay in a traditional riad, explore the souks, take a day trip to the Atlas Mountains, and eat incredible food. Safety tips and cultural etiquette advice would also be appreciated. Budget is flexible but I'd like to keep it under $200/night for accommodations."
+    },
+    {
+      "id": "cal_006",
+      "type": "single_turn",
+      "system": "You are a Chase Sapphire concierge assistant helping cardholders with financial product questions and rewards optimization.",
+      "user": "I've accumulated 280,000 Ultimate Rewards points over the past two years. I want to use them for a trip to Japan for two people. What's the best redemption strategy — transfer to airline partners, book through the portal, or a mix? I'm flexible on dates but prefer business class for the long-haul flight."
+    },
+    {
+      "id": "cal_007",
+      "type": "single_turn",
+      "system": "You are a Chase Sapphire concierge assistant helping cardholders with travel planning, dining, and lifestyle recommendations.",
+      "user": "My book club of 8 people wants to do a weekend getaway within 3 hours of Washington DC. We need a large rental house or cabin, a cozy restaurant for a group dinner, and some light outdoor activities. Everyone is in their 40s-50s. Budget is about $150 per person for the whole weekend for accommodations."
+    },
+    {
+      "id": "cal_008",
+      "type": "single_turn",
+      "system": "You are a Chase Sapphire concierge assistant helping cardholders with travel planning, dining, and lifestyle recommendations.",
+      "user": "I'm a vegetarian who just moved to Nashville. Everyone keeps telling me about the hot chicken but that's not my thing. Can you recommend 5 restaurants in Nashville that have outstanding vegetarian or plant-based options? I'm especially interested in places that aren't just salad-focused but have creative, flavor-forward dishes."
+    },
+    {
+      "id": "cal_009",
+      "type": "single_turn",
+      "system": "You are a Chase Sapphire concierge assistant helping cardholders with financial product questions and rewards optimization.",
+      "user": "I own a small e-commerce business and I'm trying to figure out the best way to handle my business expenses vs. personal expenses across Chase cards. I have the Sapphire Reserve for personal and I'm considering the Ink Business Preferred. How do the points ecosystems work together? Can I combine points?"
+    },
+    {
+      "id": "cal_010",
+      "type": "single_turn",
+      "system": "You are a Chase Sapphire concierge assistant helping cardholders with travel planning, dining, and lifestyle recommendations.",
+      "user": "I'm planning a ski trip to Park City, Utah in February for a group of 6 friends. Half of us are advanced skiers and half are beginners. We need lodging recommendations that are slope-adjacent, restaurant picks for apres-ski, and suggestions for how beginners can get lessons while advanced skiers hit the harder runs. Budget is $250/night per person."
+    },
+    {
+      "id": "cal_011",
+      "type": "single_turn",
+      "system": "You are a Chase Sapphire concierge assistant helping cardholders with travel planning, dining, and lifestyle recommendations.",
+      "user": "I have a work conference in Barcelona for 3 days and I'm extending my trip by 4 days to explore Spain. I want to take the train to either Seville or Valencia after the conference. Which would you recommend for someone who loves architecture, street food, and live music? I'd like a centrally located boutique hotel under $175/night."
+    },
+    {
+      "id": "cal_012",
+      "type": "single_turn",
+      "system": "You are a Chase Sapphire concierge assistant helping cardholders with financial product questions and rewards optimization.",
+      "user": "I'm getting married next year and expecting to spend about $40,000 on wedding expenses — venue, catering, photographer, flowers, etc. What's the smartest credit card strategy to maximize points on these large purchases? Should I open new cards for the sign-up bonuses? I already have the Sapphire Preferred."
+    },
+    {
+      "id": "cal_013",
+      "type": "single_turn",
+      "system": "You are a Chase Sapphire concierge assistant helping cardholders with travel planning, dining, and lifestyle recommendations.",
+      "user": "My retired parents (both in their 70s) want to take a river cruise in Europe. They're interested in either the Rhine or the Danube. They have mobility concerns — my mom uses a cane. Can you compare the two routes in terms of accessibility, shore excursion difficulty, scenery, and best time to go? They'd like to keep it under $5,000 per person for a 7-night cruise."
+    },
+    {
+      "id": "cal_014",
+      "type": "single_turn",
+      "system": "You are a Chase Sapphire concierge assistant helping cardholders with travel planning, dining, and lifestyle recommendations.",
+      "user": "I'm doing a 2-week road trip down the Pacific Coast Highway from Seattle to San Diego this summer. I want to make about 5-6 stops along the way. Can you suggest the best towns to overnight in, must-see viewpoints, and one standout restaurant at each stop? I'm driving a camper van so campground recommendations would also be great."
+    },
+    {
+      "id": "cal_015",
+      "type": "single_turn",
+      "system": "You are a Chase Sapphire concierge assistant helping cardholders with financial product questions and rewards optimization.",
+      "user": "I just got denied for the Chase Sapphire Reserve. The letter said too many recent accounts. I opened 3 cards in the last 18 months. Can you explain Chase's 5/24 rule and help me figure out when I'll be eligible to apply again? Also, are there alternative premium travel cards I should consider in the meantime?"
+    },
+    {
+      "id": "cal_016",
+      "type": "single_turn",
+      "system": "You are a Chase Sapphire concierge assistant helping cardholders with travel planning, dining, and lifestyle recommendations.",
+      "user": "I'm looking for an all-inclusive resort in the Caribbean for a family reunion — 20 people across 3 generations (ages 5 to 75). We need a place that has a kids club, a decent beach, accessibility for my grandmother who's in a wheelchair, and enough dining variety to keep everyone happy. Budget is $350/night per room and we'd need about 8 rooms."
+    },
+    {
+      "id": "cal_017",
+      "type": "single_turn",
+      "system": "You are a Chase Sapphire concierge assistant helping cardholders with travel planning, dining, and lifestyle recommendations.",
+      "user": "I've always wanted to see the Northern Lights. When and where should I go for the best chance? I'm based in the US and would prefer somewhere that also has other things to do in case the lights don't show. I have about a week of vacation time and a budget of $3,000 total including flights."
+    },
+    {
+      "id": "cal_018",
+      "type": "single_turn",
+      "system": "You are a Chase Sapphire concierge assistant helping cardholders with financial product questions and rewards optimization.",
+      "user": "I'm a freelance graphic designer and my income is variable — some months I make $8,000 and others only $2,000. I want to build my credit score (currently 680) and earn travel rewards. What card would you recommend given my irregular income? I'm worried about annual fees during lean months."
+    },
+    {
+      "id": "cal_019",
+      "type": "single_turn",
+      "system": "You are a Chase Sapphire concierge assistant helping cardholders with travel planning, dining, and lifestyle recommendations.",
+      "user": "I'm a wine enthusiast planning a 4-day trip to Napa Valley in October. I want to visit smaller, less touristy wineries that focus on cabernet sauvignon and pinot noir. I'd also love a Michelin-starred dining experience and a hot air balloon ride. Can you put together a rough itinerary? Budget for accommodations is $350/night."
+    },
+    {
+      "id": "cal_020",
+      "type": "single_turn",
+      "system": "You are a Chase Sapphire concierge assistant helping cardholders with travel planning, dining, and lifestyle recommendations.",
+      "user": "My teenage daughter (16) is obsessed with K-pop and wants to visit Seoul for her birthday. Neither of us has been to Asia before. Can you help plan a 6-night mother-daughter trip that includes K-pop related experiences, shopping districts, great street food spots, and cultural sites? Budget is moderate — around $200/night for a hotel in a safe, central area."
+    },
+    {
+      "id": "cal_021",
+      "type": "single_turn",
+      "system": "You are a Chase Sapphire concierge assistant helping cardholders with financial product questions and rewards optimization.",
+      "user": "I'm comparing the Chase Sapphire Reserve travel insurance with a standalone travel insurance policy for my upcoming 3-week trip to Southeast Asia. What exactly does the Reserve cover — trip cancellation, medical emergencies, lost luggage? Where are the gaps I should fill with additional coverage?"
+    },
+    {
+      "id": "cal_022",
+      "type": "single_turn",
+      "system": "You are a Chase Sapphire concierge assistant helping cardholders with travel planning, dining, and lifestyle recommendations.",
+      "user": "I'm training for a marathon and traveling to Denver next month. I need a hotel near good running trails, restaurants that cater to high-protein/athlete-friendly diets, and maybe a sports massage place. Also, how should I handle the altitude difference coming from sea level? Any acclimation tips?"
+    },
+    {
+      "id": "cal_023",
+      "type": "single_turn",
+      "system": "You are a Chase Sapphire concierge assistant helping cardholders with travel planning, dining, and lifestyle recommendations.",
+      "user": "I'm an amateur photographer planning a trip specifically for landscape photography. I'm torn between Iceland in summer and Patagonia in their autumn (March-April). Can you compare the two destinations in terms of photographic opportunities, logistics, cost, and physical difficulty? I'm reasonably fit but not a hardcore hiker."
+    },
+    {
+      "id": "cal_024",
+      "type": "single_turn",
+      "system": "You are a Chase Sapphire concierge assistant helping cardholders with financial product questions and rewards optimization.",
+      "user": "My spouse and I each have Chase Sapphire Reserve cards. Is there any benefit to one of us downgrading to the Preferred to save on the annual fee? Can we still combine our points into one account? What benefits would we lose with the downgrade?"
+    },
+    {
+      "id": "cal_025",
+      "type": "single_turn",
+      "system": "You are a Chase Sapphire concierge assistant helping cardholders with travel planning, dining, and lifestyle recommendations.",
+      "user": "I'm attending a tech conference in Lisbon, Portugal and have 2 free days before it starts. I love historic neighborhoods, pastries, and fado music. Can you plan those 2 days for me? I'd like a walking-heavy itinerary with restaurant recommendations for each meal. I'm staying near Baixa-Chiado."
+    },
+    {
+      "id": "cal_026",
+      "type": "single_turn",
+      "system": "You are a Chase Sapphire concierge assistant helping cardholders with travel planning, dining, and lifestyle recommendations.",
+      "user": "I want to take my 12-year-old son on a father-son adventure trip. He's into wildlife and the outdoors. I'm considering either a safari in Costa Rica (rainforest + wildlife) or a Yellowstone/Grand Teton trip. Which would you recommend for a first big adventure trip? Budget is about $5,000 total for both of us, 5 nights."
+    },
+    {
+      "id": "cal_027",
+      "type": "single_turn",
+      "system": "You are a Chase Sapphire concierge assistant helping cardholders with financial product questions and rewards optimization.",
+      "user": "I just realized I've been paying for my Netflix, Spotify, and gym membership on my debit card instead of my Sapphire Reserve. How many points have I been missing out on per year? What recurring bills should I always put on the Reserve to maximize points? Give me a comprehensive list."
+    },
+    {
+      "id": "cal_028",
+      "type": "single_turn",
+      "system": "You are a Chase Sapphire concierge assistant helping cardholders with travel planning, dining, and lifestyle recommendations.",
+      "user": "I have celiac disease (severe gluten intolerance) and I'm traveling to Rome for a week. I've heard Italy is actually great for celiacs. Can you recommend restaurants in Rome that are certified gluten-free or have excellent GF options? Also, any tips for communicating my dietary needs in Italian?"
+    },
+    {
+      "id": "cal_029",
+      "type": "single_turn",
+      "system": "You are a Chase Sapphire concierge assistant helping cardholders with travel planning, dining, and lifestyle recommendations.",
+      "user": "I'm a digital nomad considering spending 3 months in either Medellin, Colombia or Chiang Mai, Thailand. I need reliable WiFi, a coworking space, affordable living, a good social scene for remote workers, and safety. Can you compare the two cities across these factors and recommend one?"
+    },
+    {
+      "id": "cal_030",
+      "type": "single_turn",
+      "system": "You are a Chase Sapphire concierge assistant helping cardholders with financial product questions and rewards optimization.",
+      "user": "I'm about to book a $12,000 guided tour of New Zealand through a travel agency. Should I book it through the Chase travel portal to get the 1.5x point value, or book directly and earn 1x points? Are there any purchase protection benefits I should be aware of for such a large transaction?"
+    },
+    {
+      "id": "cal_031",
+      "type": "single_turn",
+      "system": "You are a Chase Sapphire concierge assistant helping cardholders with travel planning, dining, and lifestyle recommendations.",
+      "user": "My wife and I are empty nesters looking to downsize our travel style. We used to do big resort vacations with the kids. Now we want something more authentic and immersive. Recommend 3 unique cultural immersion experiences around the world that we could do in 7-10 days, with a budget of about $6,000 per person including flights from Atlanta."
+    },
+    {
+      "id": "cal_032",
+      "type": "single_turn",
+      "system": "You are a Chase Sapphire concierge assistant helping cardholders with travel planning, dining, and lifestyle recommendations.",
+      "user": "I need to plan a bachelor party weekend in Montreal for 8 guys. We want a centrally located Airbnb or hotel block, a great steakhouse dinner, a fun nightlife area, and one daytime activity that's not just drinking. Budget is about $500 per person for the whole weekend. We're driving up from Vermont."
+    },
+    {
+      "id": "cal_033",
+      "type": "single_turn",
+      "system": "You are a Chase Sapphire concierge assistant helping cardholders with financial product questions and rewards optimization.",
+      "user": "I have 4 Chase cards and I'm trying to simplify. I have the Sapphire Reserve, Freedom Unlimited, Freedom Flex, and Amazon Prime Visa. Is there an optimal spending allocation across these 4 cards to maximize total rewards? Can you map out which card I should use for which spending category?"
+    },
+    {
+      "id": "cal_034",
+      "type": "single_turn",
+      "system": "You are a Chase Sapphire concierge assistant helping cardholders with travel planning, dining, and lifestyle recommendations.",
+      "user": "I'm going to New Orleans for Mardi Gras for the first time. I'll be there for 5 nights. I know it's going to be crazy but I also want to experience the non-party side — jazz clubs, creole cooking classes, cemetery tours, garden district walks. Can you help me balance both sides of NOLA and suggest where to stay that's close to the action but not TOO loud?"
+    },
+    {
+      "id": "cal_035",
+      "type": "single_turn",
+      "system": "You are a Chase Sapphire concierge assistant helping cardholders with travel planning, dining, and lifestyle recommendations.",
+      "user": "My company is sending me to Dubai for a week-long assignment. I'll have evenings and one full weekend day free. What should I absolutely not miss? I'm interested in architecture, local food (not hotel restaurants), and maybe a desert experience. Also, any cultural do's and don'ts I should know as a first-time visitor?"
+    },
+    {
+      "id": "cal_036",
+      "type": "single_turn",
+      "system": "You are a Chase Sapphire concierge assistant helping cardholders with financial product questions and rewards optimization.",
+      "user": "I'm about to make a large purchase — a $3,500 laptop for my home office. I want to maximize the purchase protection and extended warranty benefits. Which of my Chase cards (Sapphire Reserve vs Freedom Unlimited) gives me the best protection? What are the exact terms for each?"
+    },
+    {
+      "id": "cal_037",
+      "type": "single_turn",
+      "system": "You are a Chase Sapphire concierge assistant helping cardholders with travel planning, dining, and lifestyle recommendations.",
+      "user": "I'm a history buff planning a World War II themed trip through Europe — Normandy beaches, Anne Frank House, Berlin Wall remnants, Auschwitz. I want to do this respectfully and meaningfully. Can you help plan a 10-day itinerary that covers the major WWII sites with the right guided tours? I'd prefer trains between cities."
+    },
+    {
+      "id": "cal_038",
+      "type": "single_turn",
+      "system": "You are a Chase Sapphire concierge assistant helping cardholders with travel planning, dining, and lifestyle recommendations.",
+      "user": "I'm looking for a wellness/detox retreat in the US. I want something that includes yoga, meditation, healthy meals, and digital detox — no phones. Ideally in a beautiful natural setting. 4-5 nights. Budget is up to $400/night. I'm in the Pacific Northwest so somewhere not too far would be ideal, but I'm open to other locations."
+    },
+    {
+      "id": "cal_039",
+      "type": "single_turn",
+      "system": "You are a Chase Sapphire concierge assistant helping cardholders with financial product questions and rewards optimization.",
+      "user": "I've heard that Chase Sapphire Reserve has a $300 annual travel credit that resets each cardmember year. What exactly counts as 'travel' for this credit? Does Uber count? Parking garages? Airbnb? Tolls? I want to make sure I'm fully using this benefit before my anniversary date next month."
+    },
+    {
+      "id": "cal_040",
+      "type": "single_turn",
+      "system": "You are a Chase Sapphire concierge assistant helping cardholders with travel planning, dining, and lifestyle recommendations.",
+      "user": "I'm a competitive surfer heading to Bali for 2 weeks in July. I want to surf different breaks every day — from beginner-friendly beaches to more advanced reef breaks. Can you suggest an itinerary that moves between different areas of Bali, with accommodation recommendations near each break? I also want to try the best local warungs for food."
+    },
+    {
+      "id": "cal_041",
+      "type": "single_turn",
+      "system": "You are a Chase Sapphire concierge assistant helping cardholders with travel planning, dining, and lifestyle recommendations.",
+      "user": "I'm planning a surprise 60th birthday party for my mom at a restaurant in Philadelphia. I need a private dining room that seats about 30 people, an Italian or Mediterranean menu, and the ability to bring in a custom cake. Budget is around $80-100 per person for food and drinks. Any recommendations?"
+    },
+    {
+      "id": "cal_042",
+      "type": "single_turn",
+      "system": "You are a Chase Sapphire concierge assistant helping cardholders with financial product questions and rewards optimization.",
+      "user": "I'm going on a 2-month backpacking trip through South America. What should I know about using my Chase Sapphire Reserve abroad? Foreign transaction fees, chip vs contactless acceptance, cash advance rates, emergency card replacement if it gets stolen? Also, should I bring a backup card?"
+    },
+    {
+      "id": "cal_043",
+      "type": "single_turn",
+      "system": "You are a Chase Sapphire concierge assistant helping cardholders with travel planning, dining, and lifestyle recommendations.",
+      "user": "I'm taking the Amtrak Coast Starlight train from Los Angeles to Seattle next month. It's a 35-hour journey. I've booked a roomette. What should I expect? Any tips for making the journey more comfortable? And can you suggest good restaurants near the stations at each end for before/after the trip?"
+    },
+    {
+      "id": "cal_044",
+      "type": "single_turn",
+      "system": "You are a Chase Sapphire concierge assistant helping cardholders with travel planning, dining, and lifestyle recommendations.",
+      "user": "I collect vinyl records and I'm planning a music-themed trip. I want to visit the best record stores and live music venues in either Memphis, Austin, or Nashville. I can only pick one city for a long weekend. Which gives me the best overall music experience? I like blues, soul, country, and indie rock."
+    },
+    {
+      "id": "cal_045",
+      "type": "single_turn",
+      "system": "You are a Chase Sapphire concierge assistant helping cardholders with financial product questions and rewards optimization.",
+      "user": "I just had my identity stolen and someone opened a fake Chase account in my name. I've already called Chase and filed a police report. What other steps should I take? Can you walk me through the full recovery process — credit freezes, monitoring, dispute timelines? I'm really stressed about this."
+    },
+    {
+      "id": "cal_046",
+      "type": "single_turn",
+      "system": "You are a Chase Sapphire concierge assistant helping cardholders with travel planning, dining, and lifestyle recommendations.",
+      "user": "I'm vegan and traveling to Buenos Aires — yes, I know it's a meat lover's paradise. But I've heard the vegan scene has exploded there recently. Can you recommend 5 vegan or vegan-friendly restaurants, plus any food markets or cooking experiences that cater to plant-based eaters? I'll be there for 4 nights."
+    },
+    {
+      "id": "cal_047",
+      "type": "single_turn",
+      "system": "You are a Chase Sapphire concierge assistant helping cardholders with travel planning, dining, and lifestyle recommendations.",
+      "user": "My best friend and I are both nurses and we finally have the same week off. We want a girls' trip that's warm, beachy, affordable, and easy to fly to from Miami. We're thinking Turks and Caicos vs Tulum vs Puerto Rico. Can you compare all three in terms of cost, vibe, things to do, and ease of travel? We each have about $2,000 total budget."
+    },
+    {
+      "id": "cal_048",
+      "type": "single_turn",
+      "system": "You are a Chase Sapphire concierge assistant helping cardholders with financial product questions and rewards optimization.",
+      "user": "I want to understand how the Chase trifecta works for maximizing cashback and travel rewards. I currently only have the Sapphire Preferred. Which other cards should I add, in what order, and how long should I space out applications? My credit score is 760 and I've had the Preferred for 2 years."
+    },
+    {
+      "id": "cal_049",
+      "type": "single_turn",
+      "system": "You are a Chase Sapphire concierge assistant helping cardholders with travel planning, dining, and lifestyle recommendations.",
+      "user": "I'm taking my elderly grandmother (age 82) to see cherry blossoms. She's always dreamed of seeing them in Japan but I'm worried about the long flight and the walking. Would Washington DC's cherry blossom festival be a good alternative? Compare the two experiences for someone with limited mobility. She can walk short distances but needs frequent rest."
+    },
+    {
+      "id": "cal_050",
+      "type": "single_turn",
+      "system": "You are a Chase Sapphire concierge assistant helping cardholders with travel planning, dining, and lifestyle recommendations.",
+      "user": "I just got a remote job and I want to try living abroad for a month. I'm looking at either Mexico City or Lisbon. I need reliable internet, a safe neighborhood with walkability, a furnished apartment under $2,000/month, good coffee shops to work from, and a social scene. I'm 29 and this is my first time doing anything like this. Which city would you recommend and why?"
+    }
+  ]
+}

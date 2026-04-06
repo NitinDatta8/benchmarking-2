@@ -1,0 +1,67 @@
+model:
+  base_id: "mistralai/Mistral-7B-Instruct-v0.3"
+  base_local_path: "/workspace/models/base"
+  context_length: 8192
+  max_new_tokens: 512
+  temperature: 0.0
+  dtype: "float16"
+  enforce_eager: false
+
+methods:
+  baseline_fp16:
+    quantized_output_path: null
+    target_gpus: ["A100_SXM", "L4", "RTX_5090"]
+
+  gptq_w4a16:
+    quantized_output_path: "/workspace/models/gptq_w4a16"
+    target_gpus: ["A100_SXM", "L4", "RTX_5090"]
+    calibration_samples: 128
+    calibration_seqlen: 2048
+
+  awq_w4a16:
+    quantized_output_path: "/workspace/models/awq_w4a16"
+    target_gpus: ["A100_SXM", "L4", "RTX_5090"]
+    calibration_samples: 128
+    calibration_seqlen: 2048
+
+  fp8_dynamic:
+    quantized_output_path: "/workspace/models/fp8_dynamic"
+    target_gpus: ["A100_SXM", "L4", "RTX_5090"]
+
+  nvfp4:
+    quantized_output_path: "/workspace/models/nvfp4"
+    target_gpus: ["RTX_5090"]
+    calibration_samples: 128
+    calibration_seqlen: 2048
+
+benchmark:
+  warmup_requests: 5
+  concurrency_levels: [1, 4, 8, 16]
+  request_timeout_sec: 120
+
+prompt_categories:
+  - travel_dining
+  - credit_card
+  - merchant_offers
+  - multi_turn
+  - structured_json
+
+output:
+  results_dir: "results/"
+  charts_dir: "results/charts/"
+  prompts_file: "prompts/benchmark_prompts.json"
+  calibration_file: "prompts/calibration_prompts.json"
+  report_file: "results/benchmark_report.md"
+
+cost:
+  runpod_hourly_rates:
+    A100_SXM: 1.49
+    L4: 0.39
+    RTX_5090: 0.89
+
+profiling:
+  trace_record_shapes: true
+  trace_with_memory: true
+  trace_with_stack: false      # true adds significant overhead
+  trace_with_flops: true
+  trace_use_gzip: true
