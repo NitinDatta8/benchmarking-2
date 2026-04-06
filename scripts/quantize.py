@@ -126,6 +126,7 @@ def quantize(method, base_model_path, output_path, config):
             dataset=ds,
             max_seq_length=seq_len,
             num_calibration_samples=n_samples,
+            sequential_targets="Linear",
         )
     else:
         print(f"[{tag}] Quantizing (no calibration)...")
