@@ -124,7 +124,6 @@ def quantize(method, base_model_path, output_path, config):
             model=model,
             recipe=recipe,
             dataset=ds,
-            shuffle=True,
             max_seq_length=seq_len,
             num_calibration_samples=n_samples,
         )
