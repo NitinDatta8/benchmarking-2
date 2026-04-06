@@ -138,8 +138,8 @@ Traces are saved to `results/traces/{method}/` and can be viewed in [Perfetto UI
 
 **Via shell script** (4th argument):
 ```bash
-bash scripts/run_benchmark.sh A100_SXM true baseline_fp16 true
-bash scripts/run_benchmark.sh A100_SXM true gptq_w4a16 true
+bash scripts/run_benchmark.sh L4 true baseline_fp16 true
+bash scripts/run_benchmark.sh L4 true awq_w4a16 true
 ```
 
 **Via runner directly:**

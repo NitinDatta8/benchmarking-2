@@ -1,5 +1,6 @@
 """Load quantized (or baseline) models via vLLM for benchmarking."""
 
+import os
 from pathlib import Path
 
 from vllm import LLM, SamplingParams
@@ -32,30 +33,18 @@ def load_model(method_name, config, profile=False):
         trace_dir = str(project_root / config["output"]["results_dir"] / "traces" / method_name)
         Path(trace_dir).mkdir(parents=True, exist_ok=True)
 
-        # vLLM accepts collect_torch_profiler + torch_profiler_trace_dir in
-        # newer versions, or a profiler_config dict in older ones.  Try the
-        # newer API first, fall back to the legacy dict.
-        try:
-            from vllm.config import ProfilerConfig  # vLLM >=0.7
-            llm_kwargs["profiler_config"] = ProfilerConfig(
-                trace_dir=trace_dir,
-                record_shapes=prof_cfg.get("trace_record_shapes", True),
-                with_memory=prof_cfg.get("trace_with_memory", True),
-                with_stack=prof_cfg.get("trace_with_stack", False),
-                with_flops=prof_cfg.get("trace_with_flops", True),
-                use_gzip=prof_cfg.get("trace_use_gzip", True),
-            )
-        except ImportError:
-            # Fallback: pass raw dict (works on vLLM <0.7)
-            llm_kwargs["profiler_config"] = {
-                "profiler": "torch",
-                "torch_profiler_dir": trace_dir,
-                "torch_profiler_record_shapes": prof_cfg.get("trace_record_shapes", True),
-                "torch_profiler_with_memory": prof_cfg.get("trace_with_memory", True),
-                "torch_profiler_with_stack": prof_cfg.get("trace_with_stack", False),
-                "torch_profiler_with_flops": prof_cfg.get("trace_with_flops", True),
-                "torch_profiler_use_gzip": prof_cfg.get("trace_use_gzip", True),
-            }
+        # vLLM enables the torch profiler when VLLM_TORCH_PROFILER_DIR is set;
+        # the LLM then exposes start_profile()/stop_profile() which the runner
+        # wraps around generate().
+        os.environ["VLLM_TORCH_PROFILER_DIR"] = trace_dir
+        if prof_cfg.get("trace_record_shapes", True):
+            os.environ["VLLM_TORCH_PROFILER_RECORD_SHAPES"] = "1"
+        if prof_cfg.get("trace_with_memory", True):
+            os.environ["VLLM_TORCH_PROFILER_WITH_PROFILE_MEMORY"] = "1"
+        if prof_cfg.get("trace_with_stack", False):
+            os.environ["VLLM_TORCH_PROFILER_WITH_STACK"] = "1"
+        if prof_cfg.get("trace_with_flops", True):
+            os.environ["VLLM_TORCH_PROFILER_WITH_FLOPS"] = "1"
 
     sampling_params = SamplingParams(
         temperature=model_cfg.get("temperature", 0.0),
