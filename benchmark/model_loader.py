@@ -42,15 +42,13 @@ def load_model(method_name, config, profile=False):
             valid = set(getattr(ProfilerConfig, "__dataclass_fields__", {}).keys())
 
         candidate = {
-            "trace_dir": trace_dir,
-            "torch_profiler_trace_dir": trace_dir,
-            "output_dir": trace_dir,
-            "record_shapes": prof_cfg.get("trace_record_shapes", True),
-            "profile_memory": prof_cfg.get("trace_with_memory", True),
-            "with_memory": prof_cfg.get("trace_with_memory", True),
-            "with_stack": prof_cfg.get("trace_with_stack", False),
-            "with_flops": prof_cfg.get("trace_with_flops", True),
-            "use_gzip": prof_cfg.get("trace_use_gzip", True),
+            "profiler": "torch",
+            "torch_profiler_dir": trace_dir,
+            "torch_profiler_record_shapes": prof_cfg.get("trace_record_shapes", True),
+            "torch_profiler_with_memory": prof_cfg.get("trace_with_memory", True),
+            "torch_profiler_with_stack": prof_cfg.get("trace_with_stack", False),
+            "torch_profiler_with_flops": prof_cfg.get("trace_with_flops", True),
+            "torch_profiler_use_gzip": prof_cfg.get("trace_use_gzip", True),
         }
         pc_kwargs = {k: v for k, v in candidate.items() if k in valid}
         print(f"ProfilerConfig fields available: {sorted(valid)}")
