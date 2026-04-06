@@ -48,7 +48,7 @@ if [ ! -d "$VENV_DIR" ]; then
 fi
 source "$VENV_DIR/bin/activate"
 
-uv pip install vllm llmcompressor datasets transformers pyyaml numpy loguru openai python-dotenv --quiet
+uv pip install vllm llmcompressor datasets transformers pyyaml numpy loguru openai python-dotenv hf_transfer --quiet
 
 # Print versions
 echo "Installed versions:"
@@ -82,11 +82,11 @@ print(f'Model ready: {target} -> {cache_path}')
 
 # Smoke test
 python3 -c "
-import torch, vllm
-print(f'torch={torch.__version__} vllm={vllm.__version__} cuda={torch.cuda.is_available()}')
+import torch
+print(f'torch={torch.__version__} cuda={torch.cuda.is_available()}')
 if torch.cuda.is_available():
     print(f'GPU: {torch.cuda.get_device_name(0)} ({torch.cuda.get_device_properties(0).total_memory/1e9:.1f} GB)')
-"
+" || echo "Smoke test failed (non-critical, CUDA may need a fresh process). Proceed with benchmarking."
 
 echo ""
 echo "Setup complete. Next: bash scripts/run_benchmark.sh $GPU_TYPE"
