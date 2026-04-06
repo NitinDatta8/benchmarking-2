@@ -81,10 +81,12 @@ def build_recipe(method):
         )
 
     if method == "awq_w4a16":
+        import torch
         from llmcompressor.modifiers.awq import AWQModifier
         return AWQModifier(
             targets="Linear", scheme=scheme, ignore=["lm_head"],
             duo_scaling=True,
+            offload_device=torch.device("cpu"),
         )
 
     from llmcompressor.modifiers.quantization import QuantizationModifier
@@ -113,6 +115,10 @@ def quantize(method, base_model_path, output_path, config):
 
     recipe = build_recipe(method)
 
+    # Detect decoder layer class for sequential_targets to avoid
+    # llmcompressor bug with Linear-level splitting on GQA models
+    decoder_layer_cls = type(model.model.layers[0]).__name__
+
     t0 = time.time()
     if method in METHODS_REQUIRING_CALIBRATION:
         from datasets import Dataset
@@ -126,7 +132,7 @@ def quantize(method, base_model_path, output_path, config):
             dataset=ds,
             max_seq_length=seq_len,
             num_calibration_samples=n_samples,
-            sequential_targets="Linear",
+            sequential_targets=[decoder_layer_cls],
         )
     else:
         print(f"[{tag}] Quantizing (no calibration)...")

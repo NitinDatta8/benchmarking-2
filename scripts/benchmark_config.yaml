@@ -22,7 +22,7 @@ methods:
     quantized_output_path: "/workspace/models/awq_w4a16"
     target_gpus: ["A100_SXM", "L4", "RTX_5090"]
     calibration_samples: 128
-    calibration_seqlen: 2048
+    calibration_seqlen: 512
 
   fp8_dynamic:
     quantized_output_path: "/workspace/models/fp8_dynamic"
