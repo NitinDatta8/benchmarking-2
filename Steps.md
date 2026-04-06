@@ -127,6 +127,8 @@ Available pre-quantized models:
 To manually download a model:
 ```bash
 huggingface-cli download Nitin878/Mistral-7B-Instruct-v0.3-llmcompressor-GPTQ --local-dir /workspace/models/gptq_w4a16
+huggingface-cli download Nitin878/Mistral-7B-Instruct-v0.3-llmcompressor-FP8 --local-dir /workspace/models/fp8_dynamic                                                                 
+huggingface-cli download Nitin878/Mistral-7B-Instruct-v0.3-llmcompressor-AWQ --local-dir /workspace/models/awq_w4a16    
 ```
 
 ## 10. Profiling (GPU kernel traces)
