@@ -39,14 +39,20 @@ esac
 nvidia-smi --query-gpu=name,memory.total,compute_cap --format=csv,noheader
 
 # Install uv if not present
-pip install uv --quiet 2>/dev/null || true
+pip install uv --quiet --break-system-packages 2>/dev/null || true
 
-# Install packages (Python & PyTorch are pre-installed on RunPod)
-uv pip install --system vllm llmcompressor datasets transformers pyyaml numpy loguru openai python-dotenv --quiet
+# Create venv and install packages
+VENV_DIR="/workspace/.venv"
+if [ ! -d "$VENV_DIR" ]; then
+  uv venv "$VENV_DIR" --python python3
+fi
+source "$VENV_DIR/bin/activate"
+
+uv pip install vllm llmcompressor datasets transformers pyyaml numpy loguru openai python-dotenv --quiet
 
 # Print versions
 echo "Installed versions:"
-uv pip list --system | grep -E "vllm|torch |transformers|llmcompressor"
+uv pip list | grep -E "vllm|torch |transformers|llmcompressor"
 
 # Download base model
 export HF_HOME=/workspace/.hf_cache

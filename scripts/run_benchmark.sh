@@ -18,6 +18,12 @@ if [ -f "$REPO_DIR/.env" ]; then
   set +a
 fi
 
+# Activate venv
+VENV_DIR="/workspace/.venv"
+if [ -f "$VENV_DIR/bin/activate" ]; then
+  source "$VENV_DIR/bin/activate"
+fi
+
 GPU_TYPE="${1:-A100_SXM}"
 SKIP_QUANT="${2:-false}"
 METHOD_FILTER="${3:-}"
