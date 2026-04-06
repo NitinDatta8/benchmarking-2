@@ -59,6 +59,13 @@ def _extract_request_stats(output, n_tokens):
     if stats is None:
         return float("nan"), float("nan"), 0.0
 
+    # Debug: print available metrics fields on first call
+    if not hasattr(_extract_request_stats, "_debugged"):
+        _extract_request_stats._debugged = True
+        print(f"  [DEBUG] metrics type: {type(stats)}")
+        print(f"  [DEBUG] metrics attrs: {[a for a in dir(stats) if not a.startswith('_')]}")
+        print(f"  [DEBUG] metrics dict: {vars(stats) if hasattr(stats, '__dict__') else 'no __dict__'}")
+
     # vLLM RequestMetrics fields:
     #   first_token_time, first_scheduled_time, finished_time
     ft = getattr(stats, "first_token_time", 0.0) or 0.0
