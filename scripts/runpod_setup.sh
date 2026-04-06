@@ -42,11 +42,11 @@ nvidia-smi --query-gpu=name,memory.total,compute_cap --format=csv,noheader
 pip install uv --quiet 2>/dev/null || true
 
 # Install packages (Python & PyTorch are pre-installed on RunPod)
-uv pip install vllm llmcompressor datasets transformers pyyaml numpy loguru openai python-dotenv --quiet
+uv pip install --system vllm llmcompressor datasets transformers pyyaml numpy loguru openai python-dotenv --quiet
 
 # Print versions
 echo "Installed versions:"
-uv pip list | grep -E "vllm|torch |transformers|llmcompressor"
+uv pip list --system | grep -E "vllm|torch |transformers|llmcompressor"
 
 # Download base model
 export HF_HOME=/workspace/.hf_cache

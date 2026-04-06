@@ -10,8 +10,8 @@ cd /workspace
 ## 1. Clone repo
 
 ```
-git clone https://github.com/NitinDatta8/quantization-benchmarking.git
-cd quantization-benchmarking
+git clone https://@github.com/NitinDatta8/benchmarking-2.git
+cd benchmarking-2
 ```
 
 ## 2. Create `.env` file
