@@ -14,22 +14,26 @@ methods:
 
   gptq_w4a16:
     quantized_output_path: "/workspace/models/gptq_w4a16"
+    hf_repo_id: "Nitin878/Mistral-7B-Instruct-v0.3-llmcompressor-GPTQ"
     target_gpus: ["A100_SXM", "L4", "RTX_5090"]
     calibration_samples: 128
     calibration_seqlen: 2048
 
   awq_w4a16:
     quantized_output_path: "/workspace/models/awq_w4a16"
+    hf_repo_id: "Nitin878/Mistral-7B-Instruct-v0.3-llmcompressor-AWQ"
     target_gpus: ["A100_SXM", "L4", "RTX_5090"]
     calibration_samples: 128
     calibration_seqlen: 512
 
   fp8_dynamic:
     quantized_output_path: "/workspace/models/fp8_dynamic"
+    hf_repo_id: "Nitin878/Mistral-7B-Instruct-v0.3-llmcompressor-FP8"
     target_gpus: ["A100_SXM", "L4", "RTX_5090"]
 
   nvfp4:
     quantized_output_path: "/workspace/models/nvfp4"
+    hf_repo_id: "Nitin878/Mistral-7B-Instruct-v0.3-llmcompressor-NVFP4"
     target_gpus: ["RTX_5090"]
     calibration_samples: 128
     calibration_seqlen: 2048

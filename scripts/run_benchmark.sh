@@ -75,7 +75,22 @@ for ENTRY in "${ENTRIES[@]}"; do
     if [ -d "$OUTPUT_PATH" ] && [ "$(ls -A "$OUTPUT_PATH")" ]; then
       echo "Quantized model exists at $OUTPUT_PATH, skipping."
     else
-      python scripts/quantize.py --method "$QUANT_METHOD" --base_model "$BASE_MODEL" --output_path "$OUTPUT_PATH" --config "$CONFIG"
+      # Try downloading pre-quantized model from HF first
+      HF_REPO=$(python -c "
+import yaml
+with open('$CONFIG') as f:
+    cfg = yaml.safe_load(f)
+print(cfg['methods'].get('$QUANT_METHOD', {}).get('hf_repo_id') or '')
+")
+      if [ -n "$HF_REPO" ]; then
+        echo "Downloading pre-quantized model from $HF_REPO ..."
+        python -c "
+from huggingface_hub import snapshot_download
+snapshot_download('$HF_REPO', local_dir='$OUTPUT_PATH')
+"
+      else
+        python scripts/quantize.py --method "$QUANT_METHOD" --base_model "$BASE_MODEL" --output_path "$OUTPUT_PATH" --config "$CONFIG"
+      fi
     fi
   fi
 
