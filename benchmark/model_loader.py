@@ -33,18 +33,29 @@ def load_model(method_name, config, profile=False):
         trace_dir = str(project_root / config["output"]["results_dir"] / "traces" / method_name)
         Path(trace_dir).mkdir(parents=True, exist_ok=True)
 
-        # vLLM enables the torch profiler when VLLM_TORCH_PROFILER_DIR is set;
-        # the LLM then exposes start_profile()/stop_profile() which the runner
-        # wraps around generate().
-        os.environ["VLLM_TORCH_PROFILER_DIR"] = trace_dir
-        if prof_cfg.get("trace_record_shapes", True):
-            os.environ["VLLM_TORCH_PROFILER_RECORD_SHAPES"] = "1"
-        if prof_cfg.get("trace_with_memory", True):
-            os.environ["VLLM_TORCH_PROFILER_WITH_PROFILE_MEMORY"] = "1"
-        if prof_cfg.get("trace_with_stack", False):
-            os.environ["VLLM_TORCH_PROFILER_WITH_STACK"] = "1"
-        if prof_cfg.get("trace_with_flops", True):
-            os.environ["VLLM_TORCH_PROFILER_WITH_FLOPS"] = "1"
+        from vllm.config import ProfilerConfig
+        # ProfilerConfig field names vary across vLLM versions; build kwargs
+        # only from fields that actually exist in this install.
+        try:
+            valid = set(ProfilerConfig.model_fields.keys())  # pydantic v2
+        except AttributeError:
+            valid = set(getattr(ProfilerConfig, "__dataclass_fields__", {}).keys())
+
+        candidate = {
+            "trace_dir": trace_dir,
+            "torch_profiler_trace_dir": trace_dir,
+            "output_dir": trace_dir,
+            "record_shapes": prof_cfg.get("trace_record_shapes", True),
+            "profile_memory": prof_cfg.get("trace_with_memory", True),
+            "with_memory": prof_cfg.get("trace_with_memory", True),
+            "with_stack": prof_cfg.get("trace_with_stack", False),
+            "with_flops": prof_cfg.get("trace_with_flops", True),
+            "use_gzip": prof_cfg.get("trace_use_gzip", True),
+        }
+        pc_kwargs = {k: v for k, v in candidate.items() if k in valid}
+        print(f"ProfilerConfig fields available: {sorted(valid)}")
+        print(f"ProfilerConfig kwargs used: {pc_kwargs}")
+        llm_kwargs["profiler_config"] = ProfilerConfig(**pc_kwargs)
 
     sampling_params = SamplingParams(
         temperature=model_cfg.get("temperature", 0.0),
