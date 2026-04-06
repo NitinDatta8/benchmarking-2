@@ -79,7 +79,7 @@ bash scripts/run_benchmark.sh RTX_5090 false nvfp4
 
 ## 6. Skip quantization (benchmark only)
 
-If models are already quantized (or downloaded from HF Hub), skip the quant step:
+If models are already quantized locally or downloaded from HF Hub, skip the quant step:
 
 ```bash
 bash scripts/run_benchmark.sh A100_SXM true gptq_w4a16
@@ -87,16 +87,14 @@ bash scripts/run_benchmark.sh A100_SXM true gptq_w4a16
 
 ## 7. Quantize only (no benchmark)
 
-Run the quantize script directly:
+Run the quantize script directly. Add `--hf_repo` to also push the quantized model to HF Hub:
 
 ```bash
-python scripts/quantize.py --method gptq_w4a16 --base_model /workspace/models/base --output_path /workspace/models/gptq_w4a16 --config scripts/benchmark_config.yaml
-python scripts/quantize.py --method awq_w4a16 --base_model /workspace/models/base --output_path /workspace/models/awq_w4a16 --config scripts/benchmark_config.yaml
-python scripts/quantize.py --method fp8_dynamic --base_model /workspace/models/base --output_path /workspace/models/fp8_dynamic --config scripts/benchmark_config.yaml
-python scripts/quantize.py --method nvfp4 --base_model /workspace/models/base --output_path /workspace/models/nvfp4 --config scripts/benchmark_config.yaml
+python scripts/quantize.py --method gptq_w4a16 --base_model /workspace/models/base --output_path /workspace/models/gptq_w4a16 --config scripts/benchmark_config.yaml --hf_repo Nitin878/Mistral-7B-Instruct-v0.3-llmcompressor-GPTQ
+python scripts/quantize.py --method awq_w4a16 --base_model /workspace/models/base --output_path /workspace/models/awq_w4a16 --config scripts/benchmark_config.yaml --hf_repo Nitin878/Mistral-7B-Instruct-v0.3-llmcompressor-AWQ
+python scripts/quantize.py --method fp8_dynamic --base_model /workspace/models/base --output_path /workspace/models/fp8_dynamic --config scripts/benchmark_config.yaml --hf_repo Nitin878/Mistral-7B-Instruct-v0.3-llmcompressor-FP8
+python scripts/quantize.py --method nvfp4 --base_model /workspace/models/base --output_path /workspace/models/nvfp4 --config scripts/benchmark_config.yaml --hf_repo Nitin878/Mistral-7B-Instruct-v0.3-llmcompressor-NVFP4
 ```
-
-Add `--hf_repo <user/repo>` to push the quantized model to HF Hub.
 
 ## 8. Benchmark only (direct runner)
 
@@ -106,18 +104,26 @@ Run the benchmark runner directly for a single method:
 python benchmark/runner.py --method gptq_w4a16 --gpu A100_SXM --config scripts/benchmark_config.yaml
 ```
 
-## 9. Download pre-quantized models from HF Hub
+## 9. Pre-quantized models on HF Hub
 
-To benchmark on a different GPU without re-quantizing:
+Pre-quantized models are configured via `hf_repo_id` in `benchmark_config.yaml`. When you run `run_benchmark.sh` with `SKIP_QUANT=false` (default), the script automatically:
 
+1. Checks if the local model directory already exists → skips if so
+2. Checks if `hf_repo_id` is set → downloads from HF Hub
+3. Falls back to local quantization
+
+Available pre-quantized models:
+
+| Method | HF Repo |
+|--------|---------|
+| GPTQ W4A16 | `Nitin878/Mistral-7B-Instruct-v0.3-llmcompressor-GPTQ` |
+| AWQ W4A16 | `Nitin878/Mistral-7B-Instruct-v0.3-llmcompressor-AWQ` |
+| FP8 Dynamic | `Nitin878/Mistral-7B-Instruct-v0.3-llmcompressor-FP8` |
+| NVFP4 | `Nitin878/Mistral-7B-Instruct-v0.3-llmcompressor-NVFP4` |
+
+To manually download a model:
 ```bash
-huggingface-cli download <user>/model-GPTQ --local-dir /workspace/models/gptq_w4a16
-huggingface-cli download <user>/model-AWQ --local-dir /workspace/models/awq_w4a16
-```
-
-Then run with skip-quant:
-```bash
-bash scripts/run_benchmark.sh L4 true
+huggingface-cli download Nitin878/Mistral-7B-Instruct-v0.3-llmcompressor-GPTQ --local-dir /workspace/models/gptq_w4a16
 ```
 
 ## 10. Profiling (GPU kernel traces)
