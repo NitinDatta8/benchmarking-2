@@ -22,16 +22,16 @@ class RequestMetrics:
     quality_passed: bool
     quality_pass_rate: float
 
-    # LLM judge scores (0-1 normalized)
-    judge_score: float = 0.0
-    judge_passed: bool = False
-
     # Latency (seconds)
     ttft_sec: float           # time to first token
     e2e_latency_sec: float    # end-to-end generation latency (per request)
 
     # Per-request throughput
     tps: float                # output_tokens / e2e_latency_sec
+
+    # LLM judge scores (0-1 normalized)
+    judge_score: float = 0.0
+    judge_passed: bool = False
 
     @property
     def has_ttft(self):
@@ -87,12 +87,12 @@ class BenchmarkResult:
     # Quality
     quality_pass_rate: float
 
+    # Cost
+    cost_per_1m_tokens_usd: float
+
     # LLM judge
     judge_score_mean: float = 0.0
     judge_pass_rate: float = 0.0
-
-    # Cost
-    cost_per_1m_tokens_usd: float
 
     requests: list[RequestMetrics] = field(default_factory=list)
 

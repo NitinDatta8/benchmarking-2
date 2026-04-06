@@ -71,7 +71,10 @@ bash scripts/run_benchmark.sh A100_SXM false gptq_w4a16
 bash scripts/run_benchmark.sh A100_SXM false awq_w4a16
 
 # Just FP8
-bash scripts/run_benchmark.sh L4 false fp8_dynamic
+bash scripts/run_benchmark.sh L4 true awq_w4a16
+bash scripts/run_benchmark.sh L4 true gptq_w4a16
+bash scripts/run_benchmark.sh L4 true fp8_dynamic
+bash scripts/run_benchmark.sh L4 true baseline_fp16
 
 # Just NVFP4 (RTX 5090 only)
 bash scripts/run_benchmark.sh RTX_5090 false nvfp4
